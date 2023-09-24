@@ -8,6 +8,7 @@ import Profile from "./pages/profile";
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
 import Aboutus from './pages/aboutus';
+import NotFound from './pages/notFound';
 import Footer from './components/Footer';
 
 import bg from './assets/images/mainbg.jpg';
@@ -24,13 +25,14 @@ function App() {
         </div>
 
        <Routes>
-          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Home />}/>
           <Route path="/results" element={<Results />} />
           <Route path="/details" element={<Details />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/aboutus" element={<Aboutus/>}/>
+          <Route path='*' element={<NotFound/>}/>
        </Routes>
        <Footer/>
     </>
