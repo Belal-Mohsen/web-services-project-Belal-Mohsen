@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Results from "./pages/Results";
 import Details from "./pages/Details";
 import Profile from "./pages/Profile";
-import Signin from "./pages/SignIn";
+import Signin from "./pages/Signin";
 import Signup from "./pages/SignUp";
 import Aboutus from './pages/AboutUs';
 import NotFound from './pages/NotFound';

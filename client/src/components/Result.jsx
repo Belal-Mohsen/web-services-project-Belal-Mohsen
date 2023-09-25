@@ -18,11 +18,11 @@ const Results = () => {
   const handleFilter = () => {
     return results.filter((result) => {
       const ratingMatch =
-        Object.values(ratingFilterOptions).every((value) => !value) || // No ratings selected
+        Object.values(ratingFilterOptions).every((value) => !value) || 
         ratingFilterOptions[result.rating];
 
       const distanceMatch =
-        distanceFilterOptions.length === 0 || // No distance filters selected
+        distanceFilterOptions.length === 0 || 
         distanceFilterOptions.some((option) => result.distance <= option);
 
       return ratingMatch && distanceMatch;
@@ -41,7 +41,6 @@ const Results = () => {
 
   const applyFilters = () => {
     const filteredResults = handleFilter();
-    // Handle filtered results, e.g., update the UI or state with filteredResults
     console.log(filteredResults);
     toggleFilterModal();
   };
@@ -52,22 +51,22 @@ const Results = () => {
 
   const renderPagination = () => {
     const pages = [];
-    const maxPageButtons = 5; // Maximum number of numbered page buttons to show
+    const maxPageButtons = 5; 
 
-    // Calculate the range of page buttons to show
     let startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
     const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
 
-    // If there are fewer pages than maxPageButtons, adjust the startPage
-    if (totalPages <= maxPageButtons) {
+    if (totalPages <= maxPageButtons) 
+    {
       startPage = 1;
-    } else if (endPage === totalPages) {
-      // If we're at the end, adjust the startPage to still show maxPageButtons
-      startPage = Math.max(totalPages - maxPageButtons + 1, 1);
-    }
+    } 
+    else if (endPage === totalPages)
+     {
+        startPage = Math.max(totalPages - maxPageButtons + 1, 1);
+     }
 
-    // "Back" button
-    if (currentPage > 1) {
+    if (currentPage > 1) 
+    {
       pages.push(
         <button
           key="back"
@@ -79,7 +78,6 @@ const Results = () => {
       );
     }
 
-    // Numbered page buttons
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <button
@@ -94,7 +92,6 @@ const Results = () => {
       );
     }
 
-    // "Next" button
     if (currentPage < totalPages) {
       pages.push(
         <button
@@ -113,14 +110,14 @@ const Results = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-8 mx-4 sm:mx-20">
       <div className="flex justify-between items-center mb-4 mt-20 mr-4">
-        {/* Filter Button */}
+       
         <button
           onClick={toggleFilterModal}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
         >
           Filter
         </button>
-        {/* Pagination */}
+       
       <div className="flex justify-center mt-4">
         {renderPagination()}
       </div>
@@ -141,15 +138,10 @@ const Results = () => {
         ))}
       </div>
 
-      
-
-      {/* Filter Modal */}
       {showFilterModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-black">
             <h2 className="text-2xl font-medium mb-4">Filter Options</h2>
-
-            {/* Rating Filters */}
             <div className="mb-4 text-black">
               <h3 className="text-lg font-medium mb-2">Rating:</h3>
               {['A', 'B', 'C'].map((rating) => (
@@ -170,7 +162,6 @@ const Results = () => {
               ))}
             </div>
 
-            {/* Distance Filter */}
             <div className="mb-4 text-black">
                   <h3 className="text-lg font-medium mb-2">Distance (miles)</h3>
                   {[50, 100, 150, 200, 250, 300].map((option) => (
@@ -195,21 +186,19 @@ const Results = () => {
                   ))}
             </div>
             <div className="mt-4 flex justify-between">
-  
-  <button
-    onClick={applyFilters}
-    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
-  >
-    Apply Filters
-  </button>
-  <button
-    onClick={toggleFilterModal}
-    className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
-  >
-    Cancel
-  </button>
-</div>
-            
+                    <button
+                      onClick={applyFilters}
+                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+                    >
+                      Apply Filters
+                    </button>
+                    <button
+                      onClick={toggleFilterModal}
+                      className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
           </div>
         </div>
       )}
