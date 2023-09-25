@@ -1,13 +1,14 @@
 import React from 'react'
+import SigninForm from '../components/SigninForm';
 
-const SignIn = () => {
+const Signin = () => {
+
   return (
-    <div>signin
+    <div>
+      <div className="absolute inset-0 flex items-center justify-center text-white">
+        <SigninForm />
+      </div>
     </div>
-
-
-    
   )
 }
-
-export default SignIn
+export default Signin
