@@ -1,7 +1,7 @@
 import React from 'react'
 import notFoundImg from '../assets/images/4.png';
 
-const notFound = () => {
+const NotFound = () => {
   return (
     <div className='absolute top-0 w-full h-full flex flex-col 
         justify-start items-center text-white'>
@@ -16,4 +16,4 @@ const notFound = () => {
   )
 }
 
-export default notFound
+export default NotFound

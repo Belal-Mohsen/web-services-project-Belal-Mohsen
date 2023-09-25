@@ -1,10 +1,9 @@
 import React from 'react';
 import DCard from '../components/DCard';
-import DMap from '../components/DMap';
 import DReview from '../components/DReview';
 import DGoogleMap from '../components/DGoogleMap';
 
-const details = () => {
+const Details = () => {
   return (
     <div className='absolute top-0 w-full h-full flex flex-col 
          justify-center text-white overflow-auto items-center'>
@@ -34,4 +33,4 @@ const details = () => {
   )
 }
 
-export default details
+export default Details

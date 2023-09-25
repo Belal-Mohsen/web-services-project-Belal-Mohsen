@@ -1,6 +1,6 @@
 import React from 'react'
 
-const aboutus = () => {
+const AboutUs = () => {
   return (
     <div className='absolute top-20 w-full h-4/5 flex flex-col 
         justify-start items-center text-white'>
@@ -91,4 +91,4 @@ const aboutus = () => {
   )
 }
 
-export default aboutus
+export default AboutUs

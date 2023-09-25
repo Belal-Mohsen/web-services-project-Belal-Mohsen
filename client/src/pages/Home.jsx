@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import LCard from '../components/LCard';
 import Search from '../components/Search';
 import img1 from '../assets/images/1.jpg';
 
 
-const home = () => {
+const Home = () => {
+  const [data, setData] = useState([]);
   const name = "name";
+
   return (
     
         <div className='absolute top-0 w-full h-full flex flex-col 
@@ -40,4 +42,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home
