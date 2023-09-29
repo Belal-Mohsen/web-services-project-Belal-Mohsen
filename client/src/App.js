@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -19,24 +18,23 @@ function App() {
       <Navbar />
       <div className='w-full h-screen relative'>
         <img src={bg} className='w-full h-full object-cover' alt='background' />
-        <div className='absolute w-full h-full top-0 left-0 bg-gray-900/80'>
-
+        <div className='absolute w-full h-full top-0 left-0 bg-gray-900/80 flex flex-col justify-center'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/aboutus" element={<Aboutus />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
         </div>
       </div>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
       <Footer />
     </>
   );
 }
+
 
 export default App;

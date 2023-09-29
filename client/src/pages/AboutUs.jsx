@@ -2,11 +2,10 @@ import React from 'react'
 
 const AboutUs = () => {
   return (
-    <div className='absolute top-20 w-full h-4/5 flex flex-col 
-        justify-start items-center text-white'>
+    <div className='absolute top-0 w-full h-full flex flex-col 
+        justify-center items-center text-white'>
 
-        
-    <div className="py-2 px-4 mx-auto max-w-screen-md">
+        <div className="py-2 px-4 mx-auto max-w-screen-md">
             
             <p className="mb-4 font-light text-left 
                           text-gray-100 sm:text-xl">

@@ -1,37 +1,30 @@
 import React from 'react';
-
 import PersonalProfile from '../components/PersonalProfile';
 import MyFav from '../components/MyFav';
 import Settings from '../components/Settings';
 
 const Profile = () => {
     return (
-        <div className='absolute top-20 w-full h-3/2 flex flex-col
-        sm:justify-end justify-center text-white items-center overflow-auto'>
+        <div className='w-full flex flex-col justify-center items-center space-y-5 overflow-auto'>
 
-
-            <div className='flex md:flex-row m-5'>
-                <div className="mr-8">
+            <div className="w-full flex flex-col md:flex-row justify-center items-center space-y-5 md:space-y-0">
+                <div className="w-full md:w-auto flex justify-center items-center pr-2 md:pr-5">
                     <PersonalProfile />
                 </div>
-                <div className="flex flex-col">
-                    <div className="mb-4">
-                        <MyFav />
-                    </div>
+
+                <div className="w-full md:w-auto flex flex-col justify-center items-center space-y-5">
+                    <MyFav />
                     <Settings />
                 </div>
             </div>
 
-            <div>
-
-
-                <button className="p-2 bg-blue-500 text-white rounded mb-8 w-60">Save changes</button>
+            <div className="w-full flex justify-center items-center mt-5">
+                <button className="p-2 bg-blue-500 text-white rounded w-60">Save changes</button>
             </div>
-
-
 
         </div>
     );
 };
+
 
 export default Profile;
