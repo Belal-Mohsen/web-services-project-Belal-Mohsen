@@ -153,3 +153,5 @@ dist
 .svelte-kit
 
 /.idea
+.idea/
+.github/

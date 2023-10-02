@@ -8,10 +8,10 @@ import MapUsingAddress from './MapUsingAddress';
 
 const DCard = () => {
     const data ={
-        name : "place name",
-    website : "www.palceName.com",
-    address : "4587 ave. Prud'homme, Montreal, QC",
-    temp : 25,
+        name : "place name",//data.name
+    website : "www.palceName.com",//data.website
+    address : "4587 ave. Prud'homme, Montreal, QC",// data.address
+    temp : 25, // data.temp
     wForecast : 12,
     wind : 14,
     sDepth : 0,
