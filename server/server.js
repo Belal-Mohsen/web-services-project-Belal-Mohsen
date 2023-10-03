@@ -20,7 +20,7 @@ const fetchPlaceDetails = async (placeIds) => {
                     params: {
                         place_id: placeId,
                         fields: 'name,formatted_address,website,photos,rating',
-                        key: 'Key',
+                        key: 'key',
                     },
                 }
             );
@@ -47,7 +47,7 @@ const getLatLongFromPostalCode = async (postalCode) => {
             {
                 params: {
                     address: postalCode,
-                    key: 'Key',
+                    key: 'key',
                 },
             }
         );
@@ -81,7 +81,7 @@ app.post('/results', async (req, res) => {
                     radius: 300000, // will be replace with distance
                     type: 'resort',
                     keyword: 'ski',
-                    key: 'Key',
+                    key: 'key',
                 },
             }
         );

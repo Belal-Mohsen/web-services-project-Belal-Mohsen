@@ -2,139 +2,117 @@ import React, { useState, useEffect } from 'react';
 import ResultCard from './ResultCard';
 import mockData from './MockData';
 
-const Results = ({APIData}) => {
+  const Results = ({APIData}) => {
   const [results, setResults] = useState([]);
   const [ratingFilterOptions, setRatingFilterOptions] = useState({});
   const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
-  console.log(APIData); // We have the data here, sample of the data is below
-  // {
-  //   formatted_address: '3900 Desserte S Autoroute 440, Laval, QC H7T 2H6, Canada',
-  //   name: 'Mazzo Sports',
-  //   photos: [
-  //     [Object], [Object],
-  //     [Object], [Object],
-  //     [Object], [Object],
-  //     [Object], [Object],
-  //     [Object], [Object]
-  //   ],
-  //   rating: 4.6,
-  //   website: 'https://www.mazzo-sports.com/'
-  // }
-  // useEffect(() => {
-  //   // Fetch data from an API or set it to your mock data
-  //   setResults(mockData); // Replace with API fetch logic when ready
-  // }, []);
+  console.log(APIData);
+  let APIDataArray = Array.from(APIData.data);
+  useEffect(() => {
+    // Fetch data from an API or set it to your mock data
+    setResults(APIDataArray); // Replace with API fetch logic when ready
+  }, []);
 
-  // const handleFilter = () => {
-  //   return results.filter((result) => {
-  //     const ratingMatch =
-  //       Object.values(ratingFilterOptions).every((value) => !value) || 
-  //       ratingFilterOptions[result.rating];
+  const handleFilter = () => {
+    return results.filter((result) => {
+      const ratingMatch =
+        Object.values(ratingFilterOptions).every((value) => !value) || 
+        ratingFilterOptions[result.rating];
 
-  //     const distanceMatch =
-  //       distanceFilterOptions.length === 0 || 
-  //       distanceFilterOptions.some((option) => result.distance <= option);
+      const distanceMatch =
+        distanceFilterOptions.length === 0 || 
+        distanceFilterOptions.some((option) => result.distance <= option);
 
-  //     return ratingMatch && distanceMatch;
-  //   });
-  // };
+      return ratingMatch && distanceMatch;
+    });
+  };
 
-  // const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
-  // const paginatedResults = handleFilter().slice(
-  //   (currentPage - 1) * resultsPerPage,
-  //   currentPage * resultsPerPage
-  // );
+  const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
+  const paginatedResults = handleFilter().slice(
+    (currentPage - 1) * resultsPerPage,
+    currentPage * resultsPerPage
+  );
 
-  // const toggleFilterModal = () => {
-  //   setShowFilterModal(!showFilterModal);
-  // };
+  const toggleFilterModal = () => {
+    setShowFilterModal(!showFilterModal);
+  };
 
-  // const applyFilters = () => {
-  //   const filteredResults = handleFilter();
-  //   console.log(filteredResults);
-  //   toggleFilterModal();
-  // };
+  const applyFilters = () => {
+    const filteredResults = handleFilter();
+    console.log(filteredResults);
+    toggleFilterModal();
+  };
 
-  // const goToPage = (page) => {
-  //   setCurrentPage(page);
-  // };
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
 
-  // const renderPagination = () => {
-  //   const pages = [];
-  //   const maxPageButtons = 5; 
+  const renderPagination = () => {
+    const pages = [];
+    const maxPageButtons = 5; 
 
-  //   let startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
-  //   const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+    let startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
+    const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
 
-  //   if (totalPages <= maxPageButtons) 
-  //   {
-  //     startPage = 1;
-  //   } 
-  //   else if (endPage === totalPages)
-  //    {
-  //       startPage = Math.max(totalPages - maxPageButtons + 1, 1);
-  //    }
+    if (totalPages <= maxPageButtons) 
+    {
+      startPage = 1;
+    } 
+    else if (endPage === totalPages)
+     {
+        startPage = Math.max(totalPages - maxPageButtons + 1, 1);
+     }
 
-  //   if (currentPage > 1) 
-  //   {
-  //     pages.push(
-  //       <button
-  //         key="back"
-  //         onClick={() => goToPage(currentPage - 1)}
-  //         className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
-  //       >
-  //         Back
-  //       </button>
-  //     );
-  //   }
+    if (currentPage > 1) 
+    {
+      pages.push(
+        <button
+          key="back"
+          onClick={() => goToPage(currentPage - 1)}
+          className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
+        >
+          Back
+        </button>
+      );
+    }
 
-  //   for (let i = startPage; i <= endPage; i++) {
-  //     pages.push(
-  //       <button
-  //         key={i}
-  //         onClick={() => goToPage(i)}
-  //         className={`mx-2 px-2 py-1 rounded ${
-  //           i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
-  //         }`}
-  //       >
-  //         {i}
-  //       </button>
-  //     );
-  //   }
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={`mx-2 px-2 py-1 rounded ${
+            i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
 
-  //   if (currentPage < totalPages) {
-  //     pages.push(
-  //       <button
-  //         key="next"
-  //         onClick={() => goToPage(currentPage + 1)}
-  //         className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
-  //       >
-  //         Next
-  //       </button>
-  //     );
-  //   }
+    if (currentPage < totalPages) {
+      pages.push(
+        <button
+          key="next"
+          onClick={() => goToPage(currentPage + 1)}
+          className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
+        >
+          Next
+        </button>
+      );
+    }
 
-  //   return pages;
-  // };
+    return pages;
+  };
 
   return (
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-8 mx-4 sm:mx-20">
       <div className="flex justify-between items-center mb-4 mt-20 mr-4">
-      {/* APIData.map(data) => {
-        <ResultCard
-              name={data.name}
-              rating={data.rating}
-              address={data.formatted_address}
-              distance= "10"
-              webURL={data.website}
-              imageSrc={data.photo}
-            />
-      } */}
-      
-        {/* <button
+       
+        <button
           onClick={toggleFilterModal}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
         >
@@ -150,12 +128,12 @@ const Results = ({APIData}) => {
         {paginatedResults.map((result, index) => (
           <div key={index} className="mb-4">
             <ResultCard
-              name={result.name}
-              rating={result.rating}
-              address={result.address}
-              distance={result.distance}
-              webURL={result.websiteURL}
-              imageSrc={result.imageSrc}
+              name={result?.name}
+              rating={result?.rating}
+              address={result?.address}
+              distance={result?.distance}
+              webURL={result?.website}
+              imageSrc={result?.photos}
             />
           </div>
         ))}
@@ -224,8 +202,7 @@ const Results = ({APIData}) => {
                   </div>
           </div>
         </div>
-      )} */}
-    </div>
+      )}
     </div>
   );
 };
