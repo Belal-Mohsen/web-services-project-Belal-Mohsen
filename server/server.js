@@ -1,11 +1,15 @@
 import express from 'express';
 import axios from 'axios';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const app = express();
 const PORT = 5000;
-const GoogleAPIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+const GoogleAPIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -20,7 +24,7 @@ const fetchPlaceDetails = async (placeIds) => {
                     params: {
                         place_id: placeId,
                         fields: 'name,formatted_address,website,photos,rating',
-                        key: 'key',
+                        key: GoogleAPIKey,
                     },
                 }
             );
@@ -47,7 +51,7 @@ const getLatLongFromPostalCode = async (postalCode) => {
             {
                 params: {
                     address: postalCode,
-                    key: 'key',
+                    key: GoogleAPIKey,
                 },
             }
         );
@@ -67,6 +71,27 @@ const getLatLongFromPostalCode = async (postalCode) => {
     }
 };
 
+async function getPhotoUrl(photoReference) {
+    const apiKey = GoogleAPIKey; // Replace with your Google API key
+    const maxWidth = 800; 
+  
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photoreference=${photoReference}&key=${apiKey}`
+      );
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch photo URL');
+      }
+      console.log(response.url);
+      return response.url;
+    } catch (error) {
+      console.error('Error fetching photo URL:', error);
+      return null; 
+    }
+  }
+  
+
 app.post('/results', async (req, res) => {
     const { address, date, distance } = req.body;
     const locationLatLng = await getLatLongFromPostalCode(address);
@@ -81,7 +106,7 @@ app.post('/results', async (req, res) => {
                     radius: 300000, // will be replace with distance
                     type: 'resort',
                     keyword: 'ski',
-                    key: 'key',
+                    key: GoogleAPIKey,
                 },
             }
         );
@@ -93,15 +118,32 @@ app.post('/results', async (req, res) => {
             console.log('Place Details:', placeDetails);
 
             
-            const simplifiedResponse = placeDetails.map((placeDetail) => ({
-                name: placeDetail.name,
-                address: placeDetail.formatted_address,
-                website: placeDetail.website,
-                photo: placeDetail.photos ? placeDetail.photos[0].photo_reference : null,
-                rating: placeDetail.rating,
-                // add weather Data (weatherData.)
+            //  const simplifiedResponse =   placeDetails.map((placeDetail) => ({
+            //     name: placeDetail.name,
+            //     address: placeDetail.formatted_address,
+            //     website: placeDetail.website,
+            //     photo: placeDetail.photos ? await getPhotoUrl(placeDetail.photos[0].photo_reference) : null,
+            //     rating: placeDetail.rating,
+            //     // add weather Data (weatherData.)
 
-            }));
+            // }));
+            const simplifiedResponse = await Promise.all(
+                placeDetails.map(async (placeDetail) => {
+                  const photo =
+                    placeDetail.photos && placeDetail.photos[0]
+                      ? await getPhotoUrl(placeDetail.photos[0].photo_reference)
+                      : null;
+              
+                  return {
+                    name: placeDetail.name,
+                    address: placeDetail.formatted_address,
+                    website: placeDetail.website,
+                    photo: photo,
+                    rating: placeDetail.rating,
+                    // add weather Data (weatherData.)
+                  };
+                })
+              );
 
             res.json({ data: simplifiedResponse });
         } else {

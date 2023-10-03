@@ -10,12 +10,18 @@ import mockData from './MockData';
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
   console.log(APIData);
-  let APIDataArray = Array.from(APIData.data);
-  useEffect(() => {
-    // Fetch data from an API or set it to your mock data
-    setResults(APIDataArray); // Replace with API fetch logic when ready
-  }, []);
+  let APIDataArray = Array.from(APIData?.data);
 
+  useEffect(() => {
+    if (APIDataArray) {
+      setResults(APIDataArray);
+    }
+  }, [APIDataArray]); 
+
+  if (!APIDataArray) {
+    return <div>Loading...</div>;
+  }
+ 
   const handleFilter = () => {
     return results.filter((result) => {
       const ratingMatch =
@@ -133,7 +139,7 @@ import mockData from './MockData';
               address={result?.address}
               distance={result?.distance}
               webURL={result?.website}
-              imageSrc={result?.photos}
+              imageSrc={result?.photo}
             />
           </div>
         ))}
