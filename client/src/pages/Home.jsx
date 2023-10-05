@@ -7,7 +7,6 @@ import img1 from '../assets/images/1.jpg';
 
 
 const Home = () => {
-  const [data, setData] = useState([]);
   const name = "name";
 
 
@@ -29,7 +28,7 @@ const Home = () => {
       const response = await axios.post('http://localhost:3000/results', formData);
 
       if (response.status === 200) {
-        console.log(response.data);
+        //console.log(response.data);
         navigate('/results', { state: { responseData: response.data } });
       } else {
         console.log("Error");

@@ -3,35 +3,11 @@ import {FaMapMarkerAlt } from 'react-icons/fa';
 import {GiEarthAmerica} from 'react-icons/gi';
 import {HiOutlineBookmark, HiBookmark} from 'react-icons/hi';
 
-import img from '../assets/images/3.jpg'
 import MapUsingAddress from './MapUsingAddress';
 
-const DCard = () => {
-    const data ={
-        name : "place name",//data.name
-    website : "www.palceName.com",//data.website
-    address : "4587 ave. Prud'homme, Montreal, QC",// data.address
-    temp : 25, // data.temp
-    wForecast : 12,
-    wind : 14,
-    sDepth : 0,
-    link : "www.google.com",
-    lat : 12434,
-    long: 14565,
-    };
-    
+const DCard = (detailsData) => {
 
-    // link
-    const [link, setLink] = useState('https://www.example.com');
-    const changeHref = () => {
-          setLink(data.link);
-    };
-
-   // show in map using lat & long
-    const showInMapClicked = () => {
-        window.open("https://maps.google.com?q="+data.lat+","+data.long );
-        
-      };
+    const data = detailsData.detailsData;
 
     // bookmark
     const [bookMark, setBookMark] = useState(false);
@@ -41,7 +17,7 @@ const DCard = () => {
     
     return (
         <div className="m-8 md:w-[600px] md:h-[600px] rounded overflow-hidden shadow-lg bg-white">
-            <img className="w-full md:h-[250px]" src={img} alt="img"/>
+            <img className="w-full md:h-[250px]" src={data.photo} alt="img"/>
                 <div className="px-6 py-4">
                     <div className="flex items-center gap-2 font-bold text-xl text-black">{data.name} 
                     <div onClick={handleBookMark}>
@@ -51,7 +27,7 @@ const DCard = () => {
                 </div>
                      </div>
                     <ul className='text-black'>
-                        <li className='m-0 p-1 flex gap-1 items-center'> <GiEarthAmerica className='text-black'/> <a href={link} target="_blank" rel="noopener noreferrer">{link}</a> </li>
+                        <li className='m-0 p-1 flex gap-1 items-center'> <GiEarthAmerica className='text-black'/> <a href={data?.website} target="_blank" rel="noopener noreferrer">{data?.website}</a> </li>
                         <li className='m-0 p-1 flex gap-2 items-center'> <FaMapMarkerAlt className='text-black'/> {data.address} <MapUsingAddress address={data.address}/></li>
                         <li className='m-0 p-1'> <span className='font-bold underline'>weather report:</span> </li>
                         <li className='m-0 p-1 ml-10'><span className='font-semibold'>Temperature:</span> {data.temp}</li>

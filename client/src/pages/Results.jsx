@@ -9,7 +9,7 @@ const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const responseData = location.state?.responseData;
-  console.log(responseData);
+  //console.log(responseData);
 
   return (
     <div>  

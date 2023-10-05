@@ -9,18 +9,24 @@ import mockData from './MockData';
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
-  console.log(APIData);
+  
   let APIDataArray = Array.from(APIData?.data);
+  //console.log(APIData);
 
   useEffect(() => {
-    if (APIDataArray) {
-      setResults(APIDataArray);
-    }
-  }, [APIDataArray]); 
+    // Fetch data from an API or set it to your mock data
+    setResults(APIDataArray); // Replace with API fetch logic when ready
+  }, []);
 
-  if (!APIDataArray) {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   if (APIDataArray) {
+  //     setResults(APIDataArray);
+  //   }
+  // }, [APIDataArray]); 
+
+  // if (!APIDataArray) {
+  //   return <div>Loading...</div>;
+  // }
  
   const handleFilter = () => {
     return results.filter((result) => {
@@ -48,7 +54,7 @@ import mockData from './MockData';
 
   const applyFilters = () => {
     const filteredResults = handleFilter();
-    console.log(filteredResults);
+    //console.log(filteredResults);
     toggleFilterModal();
   };
 
@@ -133,13 +139,7 @@ import mockData from './MockData';
       <div className="flex flex-wrap justify-center items-center gap-4">
         {paginatedResults.map((result, index) => (
           <div key={index} className="mb-4">
-            <ResultCard
-              name={result?.name}
-              rating={result?.rating}
-              address={result?.address}
-              distance={result?.distance}
-              webURL={result?.website}
-              imageSrc={result?.photo}
+            <ResultCard APIsData = {result}
             />
           </div>
         ))}
