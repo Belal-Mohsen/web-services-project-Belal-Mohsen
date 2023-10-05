@@ -7,11 +7,15 @@ import DGoogleMap from '../components/DGoogleMap';
 const Details = () => {
   const location = useLocation();
   const dataReceived = location.state;
-  console.log("From Detials");
-  console.log(dataReceived);
+  let isDataValid = false;
+  if(dataReceived !== null){
+    isDataValid = true;
+  }
+
   return (
     <div className='absolute top-0 w-full h-full flex flex-col 
          justify-center text-white overflow-auto items-center'>
+         {isDataValid ? (
 
       <div className='flex flex-col md:flex-row justify-center items-center mt-14 md:mt-20'>
 
@@ -31,6 +35,9 @@ const Details = () => {
         </div>
 
       </div>
+         ):(
+          <div className="absolute inset-0 flex text-white items-center justify-center font-semibold">No Data Found To Show!</div>
+         )};
 
 
 
