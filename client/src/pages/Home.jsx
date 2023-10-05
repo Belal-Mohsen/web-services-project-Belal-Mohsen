@@ -25,10 +25,10 @@ const Home = () => {
   const handleSubmit = async () => {
     try {
       // Send data to the server using Axios
-      const response = await axios.post('http://localhost:3000/results', formData);
+      const response = await axios.post('/APIRequest', formData);
 
       if (response.status === 200) {
-        //console.log(response.data);
+        console.log(response.data);
         navigate('/results', { state: { responseData: response.data } });
       } else {
         console.log("Error");

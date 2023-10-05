@@ -8,7 +8,7 @@ const PORT = 5000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/results', async (req, res) => {
+app.post('/APIRequest', async (req, res) => {
     const { address, date, distance } = req.body;
     const simplifiedResponse = await CallGoogleAPI(address, distance);
     console.log(simplifiedResponse);
