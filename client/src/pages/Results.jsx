@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom';
 import Result from "../components/Result";
-
+import Spinner from "../components/Spinner";
 
 
 const Results = () => {
@@ -48,8 +48,14 @@ const Results = () => {
           <Result APIData={responseData} />
         </div>
       ) : (
+        waiting? (
+          <div className="absolute inset-0 flex flex-col text-white items-center justify-center font-semibold">
+          <Spinner/>
+          {message}
+          </div>
+        ):(
         <div className="absolute inset-0 flex text-white items-center justify-center font-semibold">{message}</div>
-      )}
+      ))}
     </div>
   );
 };
