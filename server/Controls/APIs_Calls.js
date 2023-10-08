@@ -147,7 +147,9 @@ export const CallGoogleAPI = async (address, date, distance) => {
           const weatherData = await fetchWeatherData(postalCode);
 
           const daysFromNow = getDaysFromToday(date) >= 0 ? getDaysFromToday(date) : 0;
-
+          
+          const dailyWeatherData = weatherData.days[daysFromNow];
+          
           return {
             name: placeDetail.name,
             address: placeDetail.formatted_address,
