@@ -2,7 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const GoogleAPIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const GoogleAPIKey = 'API Key';
 
 const fetchPlaceDetails = async (placeIds) => {
     try {
@@ -95,8 +95,8 @@ async function getPhotoUrl(photoReference) {
                 params: {
                     location: `${locationLatLng.lat},${locationLatLng.lng}`,
                     radius: 300000, // will be replace with distance
-                    type: 'resort',
-                    keyword: 'ski',
+                    type: 'resort', //point_of_interest
+                    keyword: 'ski', //skiing
                     key: GoogleAPIKey,
                 },
             }
@@ -106,6 +106,7 @@ async function getPhotoUrl(photoReference) {
             const placeIds = places.map((place) => place.place_id);
 
             const placeDetails = await fetchPlaceDetails(placeIds);
+            
             // console.log('Place Details:', placeDetails);
 
             
@@ -136,8 +137,24 @@ async function getPhotoUrl(photoReference) {
                 })
               );
 
+        // Filter out places based on keywords
+        const filteredResponse = simplifiedResponse.filter((place) => {
+        const name = place.name.toLowerCase();
+
+        const keywordsToExclude = ['oberson', 'poubelle', 'shop', 'town', 'school', 'concordia', 'benoit', 'québec'];
+
+        // Check to see if excluded keywords are in the name
+        const hasExcludedKeyword = keywordsToExclude.some((keyword) => name.includes(keyword));
+
+        // Include only places that do not have excluded keywords in name
+        return !hasExcludedKeyword;
+      });
+
+      return filteredResponse;
+
+
             
-            return simplifiedResponse;
+            //return simplifiedResponse;
         } else {
             console.error('Google Places API request failed');
             return "Google Places API request failed";

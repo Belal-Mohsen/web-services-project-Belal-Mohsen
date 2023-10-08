@@ -17,7 +17,7 @@ const Results = () => {
       setTimeout(() => {
         setWaiting(false);
         setResponseData(location.state?.responseData);
-      }, 5000); 
+      }, 4000); 
     } else {
       setResponseData(location.state?.responseData);
       setWaiting(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ResultCard from './ResultCard';
-import mockData from './MockData';
+//import mockData from './MockData';
 
   const Results = ({APIData}) => {
   const [results, setResults] = useState([]);
@@ -74,9 +74,9 @@ import mockData from './MockData';
       startPage = 1;
     } 
     else if (endPage === totalPages)
-     {
-        startPage = Math.max(totalPages - maxPageButtons + 1, 1);
-     }
+    {
+      startPage = Math.max(totalPages - maxPageButtons + 1, 1);
+    }
 
     if (currentPage > 1) 
     {
@@ -91,7 +91,8 @@ import mockData from './MockData';
       );
     }
 
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i <= endPage; i++)
+    {
       pages.push(
         <button
           key={i}
@@ -105,7 +106,8 @@ import mockData from './MockData';
       );
     }
 
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages) 
+    {
       pages.push(
         <button
           key="next"
@@ -123,14 +125,14 @@ import mockData from './MockData';
   return (
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-8 mx-4 sm:mx-20">
       <div className="flex justify-between items-center mb-4 mt-20 mr-4">
-       
+      
         <button
           onClick={toggleFilterModal}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
         >
           Filter
         </button>
-       
+
       <div className="flex justify-center mt-4">
         {renderPagination()}
       </div>
