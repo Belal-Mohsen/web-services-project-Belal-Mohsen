@@ -8,7 +8,7 @@ import ResultCard from './ResultCard';
   const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10;
+  const resultsPerPage = 12;
   
   let APIDataArray = Array.from(APIData?.data);
   //console.log(APIData);
@@ -16,7 +16,7 @@ import ResultCard from './ResultCard';
   useEffect(() => {
     // Fetch data from an API or set it to your mock data
     setResults(APIDataArray); // Replace with API fetch logic when ready
-  }, []);
+  }, [APIDataArray]);
 
   // useEffect(() => {
   //   if (APIDataArray) {
@@ -53,7 +53,7 @@ import ResultCard from './ResultCard';
   };
 
   const applyFilters = () => {
-    const filteredResults = handleFilter();
+   handleFilter();
     //console.log(filteredResults);
     toggleFilterModal();
   };
