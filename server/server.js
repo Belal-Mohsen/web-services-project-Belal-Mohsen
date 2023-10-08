@@ -3,14 +3,14 @@ import bodyParser from 'body-parser';
 import { CallGoogleAPI } from './Controls/APIs_Calls.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = 6000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/APIRequest', async (req, res) => {
     const { address, date, distance } = req.body;
-    const simplifiedResponse = await CallGoogleAPI(address, distance);
+    const simplifiedResponse = await CallGoogleAPI(address, date, distance);
     console.log(simplifiedResponse);
     if(simplifiedResponse === 'Google Places API request failed') {
         res.status(500).json({ error: 'Google Places API request failed' });
