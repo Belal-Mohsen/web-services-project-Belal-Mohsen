@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const GoogleAPIKey = "AIzaSyBq_hYo4JWsz1s6HglTs1doKeGdAhHlt3U";
-const WeatherAPIKey = 'QE5QAQQ4CZCC7WC5SACQTEHNQ';
+const WeatherAPIKey = "QE5QAQQ4CZCC7WC5SACQTEHNQ";
 
 const fetchPlaceDetails = async (placeIds) => {
   try {
@@ -14,7 +14,8 @@ const fetchPlaceDetails = async (placeIds) => {
         {
           params: {
             place_id: placeId,
-            fields: "name,formatted_address,website,photos,rating,address_components",
+            fields:
+              "name,formatted_address,website,photos,rating,address_components",
             key: GoogleAPIKey,
           },
         }
@@ -84,18 +85,29 @@ async function getPhotoUrl(photoReference) {
 }
 
 // weatherData = function to call the weather API()
-const fetchWeatherData = async (postalCode) => {
+const fetchWeatherData = async (postalCode, date, unitGroup = "metric") => {
   const apiKey = WeatherAPIKey;
-  const unitGroup = 'metric';
+  const encodedPostalCode = encodeURIComponent(postalCode);
+  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodedPostalCode}?unitGroup=${unitGroup}&key=${apiKey}`;
+  console.log(url);
+  const daysFromNow = getDaysFromToday(date) >= 0 ? getDaysFromToday(date) : 0;
   try {
-    const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${postalCode}?unitGroup=${unitGroup}&key=${apiKey}`
-    );
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
-    return data;
+    return data.days[daysFromNow];
   } catch (error) {
     console.error("Error fetching weather data: ", error);
-    return null;
+    return {
+      "temp": "N/A",
+      "conditions": "N/A",
+      "windspeed": "N/A",
+      "snowdepth": "N/A"
+    }
   }
 };
 
@@ -139,17 +151,16 @@ export const CallGoogleAPI = async (address, date, distance) => {
             placeDetail.photos && placeDetail.photos[0]
               ? await getPhotoUrl(placeDetail.photos[0].photo_reference)
               : null;
-          
-          const postalCodeComponent = placeDetail.address_components.find(component => 
-            component.types.includes('postal_code')
-          );
-          const postalCode = postalCodeComponent ? postalCodeComponent.long_name : null;
-          const weatherData = await fetchWeatherData(postalCode);
 
-          const daysFromNow = getDaysFromToday(date) >= 0 ? getDaysFromToday(date) : 0;
-          
-          const dailyWeatherData = weatherData.days[daysFromNow];
-          
+          const postalCodeComponent = placeDetail.address_components.find(
+            (component) => component.types.includes("postal_code")
+          );
+          const postalCode = postalCodeComponent
+            ? postalCodeComponent.long_name
+            : null;
+
+          const dailyWeatherData = await fetchWeatherData(postalCode, date);
+
           return {
             name: placeDetail.name,
             address: placeDetail.formatted_address,
@@ -190,7 +201,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
 
       return filteredResponse;
 
-      //return simplifiedResponse;
+      // return simplifiedResponse;
     } else {
       console.error("Google Places API request failed");
       return "Google Places API request failed";
