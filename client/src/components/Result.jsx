@@ -16,7 +16,7 @@ import ResultCard from './ResultCard';
   useEffect(() => {
     // Fetch data from an API or set it to your mock data
     setResults(APIDataArray); // Replace with API fetch logic when ready
-  }, [APIDataArray]);
+  }, []);
 
   // useEffect(() => {
   //   if (APIDataArray) {

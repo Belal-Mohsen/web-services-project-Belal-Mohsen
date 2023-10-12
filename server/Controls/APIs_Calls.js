@@ -113,7 +113,7 @@ const fetchWeatherData = async (postalCode, date, unitGroup = "metric") => {
 
 export const CallGoogleAPI = async (address, date, distance) => {
   const locationLatLng = await getLatLongFromPostalCode(address);
-  // console.log(locationLatLng);
+  console.log(distance);
 
   if (locationLatLng) {
     const googlePlacesResponse = await axios.get(
@@ -121,7 +121,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
       {
         params: {
           location: `${locationLatLng.lat},${locationLatLng.lng}`,
-          radius: 300000, // will be replace with distance
+          radius: distance*10000, // will be replace with distance
           type: "resort", //point_of_interest
           keyword: "ski", //skiing
           key: GoogleAPIKey,
@@ -183,11 +183,11 @@ export const CallGoogleAPI = async (address, date, distance) => {
           "oberson",
           "poubelle",
           "shop",
-          "town",
+          "camp",
           "school",
-          "concordia",
+          "store",
           "benoit",
-          "québec",
+          "québec",//d
         ];
 
         // Check to see if excluded keywords are in the name
