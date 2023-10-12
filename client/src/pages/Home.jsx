@@ -10,7 +10,7 @@ const Home = () => {
 
   const [formData, setFormData] = useState({
     address: '',
-    distance: 0,
+    distance: 1,
     date: '',
   });
 

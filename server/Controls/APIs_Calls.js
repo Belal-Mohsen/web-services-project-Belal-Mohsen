@@ -180,14 +180,21 @@ export const CallGoogleAPI = async (address, date, distance) => {
         const name = place.name.toLowerCase();
 
         const keywordsToExclude = [
-          "oberson",
-          "poubelle",
           "shop",
           "camp",
           "school",
           "store",
-          "benoit",
-          "québec",//d
+          "sport",
+          "sports",
+          "boutique",
+          "fashion",
+          "mode",
+          "rent",
+          "rental", 
+          "location",
+          "vélo",
+          "bicycle", 
+          "cycle",
         ];
 
         // Check to see if excluded keywords are in the name

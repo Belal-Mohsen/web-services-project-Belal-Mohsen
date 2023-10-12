@@ -7,8 +7,8 @@ import ResultCard from './ResultCard';
   const [ratingFilterOptions, setRatingFilterOptions] = useState({});
   const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 12;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const resultsPerPage = 12;
   
   let APIDataArray = Array.from(APIData?.data);
   //console.log(APIData);
@@ -42,11 +42,11 @@ import ResultCard from './ResultCard';
     });
   };
 
-  const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
-  const paginatedResults = handleFilter().slice(
-    (currentPage - 1) * resultsPerPage,
-    currentPage * resultsPerPage
-  );
+  // const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
+  // const paginatedResults = handleFilter().slice(
+  //   (currentPage - 1) * resultsPerPage,
+  //   currentPage * resultsPerPage
+  // );
 
   const toggleFilterModal = () => {
     setShowFilterModal(!showFilterModal);
@@ -58,69 +58,69 @@ import ResultCard from './ResultCard';
     toggleFilterModal();
   };
 
-  const goToPage = (page) => {
-    setCurrentPage(page);
-  };
+  // const goToPage = (page) => {
+  //   setCurrentPage(page);
+  // };
 
-  const renderPagination = () => {
-    const pages = [];
-    const maxPageButtons = 5; 
+  // const renderPagination = () => {
+  //   const pages = [];
+  //   const maxPageButtons = 5; 
 
-    let startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
-    const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+  //   let startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
+  //   const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
 
-    if (totalPages <= maxPageButtons) 
-    {
-      startPage = 1;
-    } 
-    else if (endPage === totalPages)
-    {
-      startPage = Math.max(totalPages - maxPageButtons + 1, 1);
-    }
+  //   if (totalPages <= maxPageButtons) 
+  //   {
+  //     startPage = 1;
+  //   } 
+  //   else if (endPage === totalPages)
+  //   {
+  //     startPage = Math.max(totalPages - maxPageButtons + 1, 1);
+  //   }
 
-    if (currentPage > 1) 
-    {
-      pages.push(
-        <button
-          key="back"
-          onClick={() => goToPage(currentPage - 1)}
-          className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
-        >
-          Back
-        </button>
-      );
-    }
+  //   if (currentPage > 1) 
+  //   {
+  //     pages.push(
+  //       <button
+  //         key="back"
+  //         onClick={() => goToPage(currentPage - 1)}
+  //         className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
+  //       >
+  //         Back
+  //       </button>
+  //     );
+  //   }
 
-    for (let i = startPage; i <= endPage; i++)
-    {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => goToPage(i)}
-          className={`mx-2 px-2 py-1 rounded ${
-            i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
+  //   for (let i = startPage; i <= endPage; i++)
+  //   {
+  //     pages.push(
+  //       <button
+  //         key={i}
+  //         onClick={() => goToPage(i)}
+  //         className={`mx-2 px-2 py-1 rounded ${
+  //           i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
+  //         }`}
+  //       >
+  //         {i}
+  //       </button>
+  //     );
+  //   }
 
-    if (currentPage < totalPages) 
-    {
-      pages.push(
-        <button
-          key="next"
-          onClick={() => goToPage(currentPage + 1)}
-          className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
-        >
-          Next
-        </button>
-      );
-    }
+  //   if (currentPage < totalPages) 
+  //   {
+  //     pages.push(
+  //       <button
+  //         key="next"
+  //         onClick={() => goToPage(currentPage + 1)}
+  //         className="mx-2 px-2 py-1 rounded bg-gray-300 text-gray-800"
+  //       >
+  //         Next
+  //       </button>
+  //     );
+  //   }
 
-    return pages;
-  };
+  //   return pages;
+  // };
 
   return (
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-8 mx-4 sm:mx-20">
@@ -133,13 +133,13 @@ import ResultCard from './ResultCard';
           Filter
         </button>
 
-      <div className="flex justify-center mt-4">
+      {/* <div className="flex justify-center mt-4">
         {renderPagination()}
-      </div>
+      </div> */}
       </div>
 
       <div className="flex flex-wrap justify-center items-center gap-4">
-        {paginatedResults.map((result, index) => (
+        {handleFilter().map((result, index) => (
           <div key={index} className="mb-4">
             <ResultCard APIsData = {result}
             />
