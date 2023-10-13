@@ -15,7 +15,7 @@ const fetchPlaceDetails = async (placeIds) => {
           params: {
             place_id: placeId,
             fields:
-              "name,formatted_address,website,photos,rating,address_components",
+            "name,formatted_address,website,photos,rating,address_components,geometry",
             key: GoogleAPIKey,
           },
         }
@@ -35,6 +35,12 @@ const fetchPlaceDetails = async (placeIds) => {
     console.error("Error:", error);
     return [];
   }
+};
+
+const getMapUrl = async (latitude, longitude ) =>{
+  console.log(latitude, longitude)
+  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${GoogleAPIKey}&center=${encodeURIComponent(latitude + ',' + longitude)}&zoom=15`;
+  return mapUrl;
 };
 
 const getLatLongFromPostalCode = async (postalCode) => {
@@ -113,7 +119,6 @@ const fetchWeatherData = async (postalCode, date, unitGroup = "metric") => {
 
 export const CallGoogleAPI = async (address, date, distance) => {
   const locationLatLng = await getLatLongFromPostalCode(address);
-  console.log(distance);
 
   if (locationLatLng) {
     const googlePlacesResponse = await axios.get(
@@ -167,6 +172,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
             website: placeDetail.website,
             photo: photo,
             rating: placeDetail.rating,
+            mapUrl : await getMapUrl(placeDetail.geometry?.location.lat,placeDetail.geometry?.location.lng),
             temp: dailyWeatherData.temp,
             wForecast: dailyWeatherData.conditions,
             wind: dailyWeatherData.windspeed,

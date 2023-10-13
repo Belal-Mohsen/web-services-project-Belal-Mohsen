@@ -12,10 +12,6 @@ const Details = () => {
     isDataValid = true;
   }
 
-  const address = {
-    lat: 37.7749, // Example latitude
-    lng: -122.4194, // Example longitude
-  };
   return (
     <div className='absolute top-0 w-full h-full flex flex-col 
          justify-center text-white overflow-auto items-center'>
@@ -29,7 +25,7 @@ const Details = () => {
 
         <div className="hidden md:flex flex-col justify-start self-center w-full p-4">
           <div>
-            <DGoogleMap {...address}/>
+          <DGoogleMap detailsData ={dataReceived}/>
 
           </div>
           <div className='w-full'>
@@ -41,7 +37,7 @@ const Details = () => {
       </div>
          ):(
           <div className="absolute inset-0 flex text-white items-center justify-center font-semibold">No Data Found To Show!</div>
-         )};
+         )}
 
 
 
