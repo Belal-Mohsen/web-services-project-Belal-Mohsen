@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 
 const DReview = (detailsData) => {
   const data = detailsData.detailsData;
-  const numericRating = data.rating; // Replace with the actual numeric rating from the API
+  const numericRating = data.rating; 
 
   let message = '';
   let ratingValue = 0;
@@ -28,7 +28,7 @@ const DReview = (detailsData) => {
   }
   
 
-
+  
   return (
     <div className='bg-white p-3 md:w-[400px] m-5'>
       <Stack spacing={1}>

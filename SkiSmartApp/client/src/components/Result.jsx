@@ -4,7 +4,7 @@ import ResultCard from './ResultCard';
 
   const Results = ({APIData}) => {
   const [results, setResults] = useState([]);
-  const [ratingFilterOptions, setRatingFilterOptions] = useState({});
+  const [ratingFilterOptions, setRatingFilterOptions] = useState([false, false, false, false]);
   const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   // const [currentPage, setCurrentPage] = useState(1);
@@ -30,15 +30,22 @@ import ResultCard from './ResultCard';
  
   const handleFilter = () => {
     return results.filter((result) => {
-      const ratingMatch =
-        Object.values(ratingFilterOptions).every((value) => !value) || 
-        ratingFilterOptions[result.rating];
+      const rating = result.rating;
+      
 
-      const distanceMatch =
-        distanceFilterOptions.length === 0 || 
-        distanceFilterOptions.some((option) => result.distance <= option);
+      if (ratingFilterOptions[0]) {
+        return rating !== null && rating < 3;
+      } else if (ratingFilterOptions[1]) {
+        return rating !== null && rating >= 3 && rating <= 4;
+      } else if (ratingFilterOptions[2]) {
+        return rating !== null && rating > 4;
+      }
+      return true; 
+      // const distanceMatch =
+      //   distanceFilterOptions.length === 0 ||
+      //   distanceFilterOptions.some((option) => result.distance <= option);
 
-      return ratingMatch && distanceMatch;
+      //return ratingMatch && distanceMatch;
     });
   };
 
@@ -132,12 +139,10 @@ import ResultCard from './ResultCard';
         >
           Filter
         </button>
-
       {/* <div className="flex justify-center mt-4">
         {renderPagination()}
       </div> */}
       </div>
-
       <div className="flex flex-wrap justify-center items-center gap-4">
         {handleFilter().map((result, index) => (
           <div key={index} className="mb-4">
@@ -153,18 +158,17 @@ import ResultCard from './ResultCard';
             <h2 className="text-2xl font-medium mb-4">Filter Options</h2>
             <div className="mb-4 text-black">
               <h3 className="text-lg font-medium mb-2">Rating:</h3>
-              {['A', 'B', 'C'].map((rating) => (
-                <label key={rating} className="inline-flex items-center space-x-2">
+              {['Less than 3', '3-4', 'More than 4'].map((rating, index) => (
+                <label key={index} className="inline-flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    className="form-checkbox"
-                    checked={ratingFilterOptions[rating]}
-                    onChange={() =>
-                      setRatingFilterOptions({
-                        ...ratingFilterOptions,
-                        [rating]: !ratingFilterOptions[rating],
-                      })
-                    }
+                    className="form-checkbox ml-6"
+                    checked={ratingFilterOptions[index]}
+                    onChange={() => {
+                      const updatedOptions = [...ratingFilterOptions];
+                      updatedOptions[index] = !updatedOptions[index];
+                      setRatingFilterOptions(updatedOptions);
+                    }}
                   />
                   <span>{rating}</span>
                 </label>
@@ -195,19 +199,19 @@ import ResultCard from './ResultCard';
                   ))}
             </div>
             <div className="mt-4 flex justify-between">
-                    <button
-                      onClick={applyFilters}
-                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
-                    >
-                      Apply Filters
-                    </button>
-                    <button
-                      onClick={toggleFilterModal}
-                      className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+            <button
+                onClick={toggleFilterModal}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
+              >
+                Close
+              </button>
+              <button
+                onClick={toggleFilterModal}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+              >
+                Apply Filters
+              </button>
+            </div>
           </div>
         </div>
       )}
