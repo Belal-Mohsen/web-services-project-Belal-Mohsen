@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
+import isEqual from "lodash/isEqual";
 import Result from "../components/Result";
 import Spinner from "../components/Spinner";
 
@@ -9,6 +10,7 @@ const Results = () => {
 
   const location = useLocation();
   const formData = location.state;
+  const preFormData = formData;
 
   const [responseData, setResponseData] = useState(null);
   const [waiting, setWaiting] = useState(true);
@@ -20,8 +22,12 @@ const Results = () => {
       try {
         const response = await axios.post('/APIRequest', formData);
         if (response.status === 200) {
-          console.log(response.data);
-          setResponseData(response.data);
+          const data = response.data
+          console.log(data);
+          setResponseData(data);
+
+          localStorage.setItem("responseData", JSON.stringify(data));
+          localStorage.setItem("formData", JSON.stringify(formData));
         } else {
           console.log("Error");
           setResponseData(null); 
@@ -33,7 +39,16 @@ const Results = () => {
         setWaiting(false); 
       }
     }
-    fetchData();
+    const storedData = localStorage.getItem("responseData");
+    const storedFormData = localStorage.getItem("formData");
+
+    if (storedData && isEqual(formData, JSON.parse(storedFormData))) {
+      setResponseData(JSON.parse(storedData));
+      setWaiting(false);
+    } else {
+      fetchData();
+    }
+    
   }, [formData]);
 
 
