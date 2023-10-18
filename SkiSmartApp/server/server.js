@@ -1,9 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path'
 import { CallGoogleAPI } from './Controls/APIs_Calls.js';
 
 const app = express();
-const PORT = 6000;
+const PORT = 5000;
+const _dirname = path.dirname("");
+const buildPath = path.join(_dirname, "../client/build");
+app.use(express.static(buildPath));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,6 +28,13 @@ app.post('/APIRequest', async (req, res) => {
 
 // Our API
 // we will change it later to return data from our DB
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"), (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
+  });
 app.get('/skiAPI', (req, res) => {
     res.send({
         "name": "Ski",
