@@ -9,7 +9,6 @@
 
 # Conventional directory for build output.
 .DS_Store
-build/
 .gradle/
 
 ### Node ###
@@ -50,8 +49,7 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+
 
 # Dependency directories
 node_modules/
