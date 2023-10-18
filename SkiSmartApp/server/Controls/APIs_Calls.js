@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const GoogleAPIKey = "AIzaSyBq_hYo4JWsz1s6HglTs1doKeGdAhHlt3U";
-const WeatherAPIKey = "QE5QAQQ4CZCC7WC5SACQTEHNQ";
+const WeatherAPIKey = "SNSDRV352M8STX4M8PU76QRQX";
 
 const fetchPlaceDetails = async (placeIds) => {
   try {
