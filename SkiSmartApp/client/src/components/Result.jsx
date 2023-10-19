@@ -27,7 +27,15 @@ import ResultCard from './ResultCard';
   // if (!APIDataArray) {
   //   return <div>Loading...</div>;
   // }
- 
+  const getTopRatedResorts = (data) => {
+    return data
+      .filter(resort => Boolean(resort.rating))
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, 3);
+  };
+
+  const topResorts = getTopRatedResorts(APIData?.data || []);
+
   const handleFilter = () => {
     return results.filter((result) => {
       const rating = result.rating;
@@ -130,7 +138,7 @@ import ResultCard from './ResultCard';
   // };
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-8 mx-4 sm:mx-20">
+    <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-14 mx-4 sm:mx-20">
       <div className="flex justify-between items-center mb-4 mt-20 mr-4">
       
         <button
@@ -143,13 +151,29 @@ import ResultCard from './ResultCard';
         {renderPagination()}
       </div> */}
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-4">
+      <div className="top-rated-section mb-8 flex flex-col items-center">
+          <h2 className="text-6xl font-medium mb-4">Top Ski Resorts</h2>
+          <div className="flex flex-wrap gap-10 justify-center">
+              {topResorts.map((resort, index) => (
+                <div key={index} className="mb-4">
+                  <ResultCard APIsData={resort} />
+                </div>
+              ))}
+          </div>
+      </div>
+
+      
+
+      <div className="mb-8 flex flex-col items-center">
+        <h2 className="text-6xl font-medium mb-4">All Ski Resorts</h2>
+        <div className="flex flex-wrap gap-10 justify-center">      
         {handleFilter().map((result, index) => (
           <div key={index} className="mb-4">
             <ResultCard APIsData = {result}
             />
           </div>
         ))}
+      </div>
       </div>
 
       {showFilterModal && (

@@ -14,7 +14,7 @@ const Navbar = () => {
     setName(!name);
   };
   return (
-    <div className="flex w-full justify-between items-center h-20 px-4 absolute z-10 text-white">
+    <div className="flex w-full items-center  justify-between h-20 px-4 absolute z-10 text-white">
       <div className="flex">
         <div className="my-10">
           <img src={logo} width={100} alt="logo" />
@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className="h-0 my-16">
           <h1
             onClick={handleNav}
-            className={name ? "hidden" : "block text-2xl"}
+            className={name ? "hidden" : "block text-3xl"}
           >
             {" "}
             SkiSmart
@@ -30,7 +30,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <ul className="hidden sm:flex text-xl space-x-10">
+      <ul className="hidden sm:flex text-2xl space-x-10">
         <li>
           <NavLink to="/">Home</NavLink>
         </li>

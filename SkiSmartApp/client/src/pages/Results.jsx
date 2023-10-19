@@ -65,7 +65,7 @@ const Results = () => {
   return (
     <div>
       {showResult ? (
-        <div className="absolute inset-0 flex text-white overflow-auto">
+        <div className="absolute inset-0 flex text-white overflow-auto bg-gray-900/50">
           <Result APIData={responseData} />
         </div>
       ) : (

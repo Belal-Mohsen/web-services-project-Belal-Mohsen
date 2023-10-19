@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import LCard from '../components/LCard';
 import Search from '../components/Search';
-import img1 from '../assets/images/1.jpg';
 
 
 const Home = () => {
-  const name = "name";
 
   const [formData, setFormData] = useState({
     address: '',
@@ -27,35 +24,19 @@ const Home = () => {
   };
 
   return (
-    <div className='absolute top-0 w-full h-full flex flex-col 
-        sm:justify-end justify-center text-white'>
-
-      <div className='m-5'>
-        <h1> Ski the mountain, own the day. </h1>
-      </div>
-      <Search formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
-
-      <div className='hidden sm:flex flex-col'>
-        <div className='mx-5 mt-5'>
-          <h1>Top Ski Destinations</h1>
+    
+      <div className='absolute top-0 w-full h-full flex flex-col 
+    justify-start'>
+        <div className='mx-24 text-center mb-32 mt-60'>
+          <h1 className="text-7xl text-white"> Ski the mountain, own the day. </h1>
         </div>
-        <div className='sm:flex sm:flex-row gap-10 justify-stretch w-auto m-5 px-5'>
-          <LCard
-            imageSrc={img1}
-            text={name}
-          />
-
-          <LCard
-            imageSrc={img1}
-            text={name}
-          />
-          <LCard
-            imageSrc={img1}
-            text={name}
-          />
-        </div>
+      <div className="mx-16">
+      <Search formData={formData} onChange={handleChange} onSubmit={handleSubmit} 
+      />
       </div>
     </div>
+
+      
   )
 }
 

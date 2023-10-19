@@ -14,7 +14,8 @@ const Details = () => {
 
   return (
     <div className='absolute top-0 w-full h-full flex flex-col 
-         justify-center text-white overflow-auto items-center'>
+         bg-gray-900/50 justify-center text-white overflow-auto items-center'>
+         <h2 className="mt-44 mb-0 text-6xl font-medium mb-4">Resort Details</h2>
          {isDataValid ? (
 
       <div className='flex flex-col md:flex-row justify-center items-center mt-14 md:mt-20'>
