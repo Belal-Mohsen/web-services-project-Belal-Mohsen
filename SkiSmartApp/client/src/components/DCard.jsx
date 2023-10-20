@@ -16,7 +16,7 @@ const DCard = (detailsData) => {
     }
     
     return (
-        <div className="m-8 md:w-[600px] md:h-[600px] rounded overflow-hidden shadow-lg bg-white">
+        <div className="m-8 mt-0 md:w-[500px] md:h-[570px] rounded-3xl overflow-hidden shadow-lg bg-white  border border-gray-600">
             <img className="w-full md:h-[250px]" src={data.photo} alt="img"/>
                 <div className="px-6 py-4">
                     <div className="flex items-center gap-2 font-bold text-xl text-black">{data.name} 

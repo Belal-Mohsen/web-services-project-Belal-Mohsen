@@ -14,12 +14,12 @@ const handleClick = () => {
 }
 
   return (
-    <div className="result-card w-72 h-84 bg-white text-black mx-auto">
-      <div className="resort-image border border-blue-200">
-        <img onClick={handleClick} src={APIsData?.photo} alt={`${APIsData?.name} Resort`} className="w-72 h-52" />
+    <div className="result-card w-72 h-92 bg-white text-black mx-auto rounded-3xl shadow-lg border border-gray-600">
+      <div className="resort-image rounded-t-3xl">
+        <img onClick={handleClick} src={APIsData?.photo} alt={`${APIsData?.name} Resort`} className="w-72 h-56 rounded-t-3xl" />
       </div>
-      <div className="resort-details border border-blue-200 p-2 w-72 h-32">
-        <div className="flex justify-between items-center">
+      <div className="resort-details p-2 w-72 h-36 rounded-b-3xl text-gray-600">
+        <div className="flex justify-between items-center text-blue-500">
           <h2>{APIsData?.name}</h2>
           <span className="rating text-lg text-red-500">{APIsData?.rating}</span>
         </div>

@@ -30,7 +30,7 @@ const DReview = (detailsData) => {
 
   
   return (
-    <div className='bg-white p-3 md:w-[400px] m-5'>
+    <div className='bg-white p-3 md:w-[400px] m-5 mt-0 mb-8 rounded-3xl shadow-lg border border-gray-600'>
       <Stack spacing={1}>
         <Rating name="half-rating" defaultValue={data.rating} precision={0.5} />
         <div className='text-black p-3 w-full'>

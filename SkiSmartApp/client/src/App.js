@@ -18,7 +18,7 @@ function App() {
       <Navbar />
       <div className='w-full h-screen relative'>
         <img src={bg} className='w-full h-full object-cover' alt='background' />
-        <div className='absolute w-full h-full top-0 left-0 bg-gray-900/80 flex flex-col justify-center'>
+        <div className='absolute w-full h-full top-0 left-0 flex flex-col justify-center'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/results" element={<Results />} />
