@@ -78,6 +78,13 @@ import ResultCard from './ResultCard';
     toggleFilterModal();
   };
 
+  const clearFilters = () => {
+    setRatingFilterOptions([false, false, false, false]);
+    setDistanceFilterOptions([]);
+    setFilteredResults(results); // Reset to the initial results
+    toggleFilterModal();  
+};
+
   // const goToPage = (page) => {
   //   setCurrentPage(page);
   // };
@@ -197,6 +204,7 @@ import ResultCard from './ResultCard';
                       const updatedOptions = [...ratingFilterOptions];
                       updatedOptions[index] = !updatedOptions[index];
                       setRatingFilterOptions(updatedOptions);
+                     
                     }}
                   />
                   <span>{rating}</span>
@@ -221,6 +229,7 @@ import ResultCard from './ResultCard';
                               return [...prevOptions, optionValue];
                             }
                           });
+                         
                         }}
                       />
                       <span className="ml-2">{option}</span>
@@ -228,17 +237,17 @@ import ResultCard from './ResultCard';
                   ))}
             </div>
             <div className="mt-4 flex justify-between">
-            <button
-                onClick={toggleFilterModal}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
-              >
-                Close
-              </button>
               <button
                 onClick={applyFilters}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
               >
-                Apply/Clear Filters
+                Apply Filters
+              </button>
+              <button
+                onClick={clearFilters}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 cursor-pointer ml-4"
+              >
+                Clear Filters
               </button>
             </div>
           </div>
