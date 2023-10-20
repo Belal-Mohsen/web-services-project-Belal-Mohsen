@@ -7,6 +7,7 @@ const Search = ({ formData, onChange, onSubmit }) => {
   const handleSliderChange = (value) => {
     onChange({ ...formData, distance: value });
   };
+  
 
   return (
     <>

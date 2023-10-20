@@ -14,7 +14,7 @@ const Navbar = () => {
     setName(!name);
   };
   return (
-    <div className="flex w-full items-center  justify-between h-20 px-4 absolute z-10 text-white">
+    <div className="flex w-full items-center h-20 px-4 absolute z-10 text-white shadow-lg">
       <div className="flex">
         <div className="my-10">
           <img src={logo} width={100} alt="logo" />
@@ -30,7 +30,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <ul className="hidden sm:flex text-2xl space-x-10">
+      <ul className="hidden sm:flex text-2xl space-x-10 sm:mx-20 sm:mt-2">
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
@@ -41,7 +41,7 @@ const Navbar = () => {
           <NavLink to="/aboutus">About Us/Contact</NavLink>
         </li>
       </ul>
-      <div className="hidden sm:flex">
+      <div className="hidden sm:flex sm:ml-40">
         <NavLink to="/signin">
           <BsPerson size={35} />
         </NavLink>
@@ -67,7 +67,7 @@ const Navbar = () => {
             <h1 className="logo text-2xl mb-4"> SkiSmart</h1>
 
             <li>
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/profile">favourites</NavLink>
