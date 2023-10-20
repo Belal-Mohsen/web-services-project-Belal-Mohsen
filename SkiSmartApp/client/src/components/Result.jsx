@@ -200,8 +200,8 @@ import ResultCard from './ResultCard';
             </div>
 
             <div className="mb-4 text-black">
-                  <h3 className="text-lg font-medium mb-2">Distance (miles)</h3>
-                  {[50, 100, 150, 200, 250, 300].map((option) => (
+                  <h3 className="text-lg font-medium mb-2">Distance (kilometers)</h3>
+                  {[25, 50, 75, 100, 150, 200, 250, 300].map((option) => (
                     <label key={option} className="flex items-center">
                       <input
                         type="checkbox"

@@ -3,7 +3,25 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const GoogleAPIKey = "AIzaSyBq_hYo4JWsz1s6HglTs1doKeGdAhHlt3U";
-const WeatherAPIKey = "SNSDRV352M8STX4M8PU76QRQX";
+const WeatherAPIKey = "NSDRV352M8STX4M8PU76QRQX";
+
+// Haversine formula function to calculate distance between two lat-lng points
+function haversineDistance(lat1, lon1, lat2, lon2) {
+  function toRad(value) {
+      return value * Math.PI / 180;
+  }
+
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const d = R * c;
+
+  return d; // Returns distance in kilometers
+}
 
 const fetchPlaceDetails = async (placeIds) => {
   try {
@@ -166,6 +184,11 @@ export const CallGoogleAPI = async (address, date, distance) => {
 
           const dailyWeatherData = await fetchWeatherData(postalCode, date);
 
+          const distance = haversineDistance(
+            locationLatLng.lat, locationLatLng.lng, 
+            placeDetail.geometry?.location.lat, placeDetail.geometry?.location.lng
+          );
+
           return {
             name: placeDetail.name,
             address: placeDetail.formatted_address,
@@ -177,6 +200,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
             wForecast: dailyWeatherData.conditions,
             wind: dailyWeatherData.windspeed,
             sDepth: dailyWeatherData.snowdepth,
+            distance: Math.round(distance * 10) / 10  // Round off to 1 decimal place
           };
         })
       );
