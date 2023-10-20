@@ -7,6 +7,7 @@ import ResultCard from './ResultCard';
   const [ratingFilterOptions, setRatingFilterOptions] = useState([false, false, false, false]);
   const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filteredResults, setFilteredResults] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const resultsPerPage = 12;
   
@@ -37,10 +38,10 @@ import ResultCard from './ResultCard';
   const topResorts = getTopRatedResorts(APIData?.data || []);
 
   const handleFilter = () => {
-    return results.filter((result) => {
+    const filtered = results.filter((result) => {
       const rating = result.rating;
       
-
+     
       if (ratingFilterOptions[0]) {
         return rating !== null && rating < 3;
       } else if (ratingFilterOptions[1]) {
@@ -48,13 +49,17 @@ import ResultCard from './ResultCard';
       } else if (ratingFilterOptions[2]) {
         return rating !== null && rating > 4;
       }
-      return true; 
-      // const distanceMatch =
-      //   distanceFilterOptions.length === 0 ||
-      //   distanceFilterOptions.some((option) => result.distance <= option);
+      // return true; 
 
-      //return ratingMatch && distanceMatch;
+      const distanceMatch =
+        distanceFilterOptions.length === 0 ||
+        distanceFilterOptions.some((option) => result.distance <= option);
+
+      return rating && distanceMatch;
     });
+
+    setFilteredResults(filtered);
+
   };
 
   // const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
@@ -72,6 +77,13 @@ import ResultCard from './ResultCard';
     //console.log(filteredResults);
     toggleFilterModal();
   };
+
+  const clearFilters = () => {
+    setRatingFilterOptions([false, false, false, false]);
+    setDistanceFilterOptions([]);
+    setFilteredResults(results); // Reset to the initial results
+    toggleFilterModal();  
+};
 
   // const goToPage = (page) => {
   //   setCurrentPage(page);
@@ -139,6 +151,18 @@ import ResultCard from './ResultCard';
 
   return (
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-14 mx-4 sm:mx-20">
+      
+      <div className="top-rated-section mb-8 mt-24 flex flex-col items-center">
+          <h2 className="text-6xl font-medium mb-4">Top Ski Resorts</h2>
+          <div className="flex flex-wrap gap-10 justify-center">
+              {topResorts.map((resort, index) => (
+                <div key={index} className="mb-4">
+                  <ResultCard APIsData={resort} />
+                </div>
+              ))}
+          </div>
+      </div>
+
       <div className="flex justify-between items-center mb-4 mt-20 mr-4">
       
         <button
@@ -151,23 +175,11 @@ import ResultCard from './ResultCard';
         {renderPagination()}
       </div> */}
       </div>
-      <div className="top-rated-section mb-8 flex flex-col items-center">
-          <h2 className="text-6xl font-medium mb-4">Top Ski Resorts</h2>
-          <div className="flex flex-wrap gap-10 justify-center">
-              {topResorts.map((resort, index) => (
-                <div key={index} className="mb-4">
-                  <ResultCard APIsData={resort} />
-                </div>
-              ))}
-          </div>
-      </div>
-
-      
 
       <div className="mb-8 flex flex-col items-center">
         <h2 className="text-6xl font-medium mb-4">All Ski Resorts</h2>
         <div className="flex flex-wrap gap-10 justify-center">      
-        {handleFilter().map((result, index) => (
+        {filteredResults.map((result, index) => (
           <div key={index} className="mb-4">
             <ResultCard APIsData = {result}
             />
@@ -192,6 +204,7 @@ import ResultCard from './ResultCard';
                       const updatedOptions = [...ratingFilterOptions];
                       updatedOptions[index] = !updatedOptions[index];
                       setRatingFilterOptions(updatedOptions);
+                     
                     }}
                   />
                   <span>{rating}</span>
@@ -216,6 +229,7 @@ import ResultCard from './ResultCard';
                               return [...prevOptions, optionValue];
                             }
                           });
+                         
                         }}
                       />
                       <span className="ml-2">{option}</span>
@@ -223,17 +237,17 @@ import ResultCard from './ResultCard';
                   ))}
             </div>
             <div className="mt-4 flex justify-between">
-            <button
-                onClick={toggleFilterModal}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
-              >
-                Close
-              </button>
               <button
-                onClick={toggleFilterModal}
+                onClick={applyFilters}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
               >
                 Apply Filters
+              </button>
+              <button
+                onClick={clearFilters}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 cursor-pointer ml-4"
+              >
+                Clear Filters
               </button>
             </div>
           </div>
