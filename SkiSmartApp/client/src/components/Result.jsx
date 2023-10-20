@@ -17,6 +17,7 @@ import ResultCard from './ResultCard';
   useEffect(() => {
     // Fetch data from an API or set it to your mock data
     setResults(APIDataArray); // Replace with API fetch logic when ready
+    setFilteredResults(APIDataArray);
   }, []);
 
   // useEffect(() => {
@@ -61,6 +62,7 @@ import ResultCard from './ResultCard';
     setFilteredResults(filtered);
 
   };
+
 
   // const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
   // const paginatedResults = handleFilter().slice(
