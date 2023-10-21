@@ -8,15 +8,18 @@ const WeatherAPIKey = "M9HRY7XX7GCUTVZMP9YQLUAA5";
 // Haversine formula function to calculate distance between two lat-lng points
 function haversineDistance(lat1, lon1, lat2, lon2) {
   function toRad(value) {
-      return value * Math.PI / 180;
+    return (value * Math.PI) / 180;
   }
 
   const R = 6371; // Earth's radius in kilometers
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const d = R * c;
 
@@ -33,7 +36,7 @@ const fetchPlaceDetails = async (placeIds) => {
           params: {
             place_id: placeId,
             fields:
-            "name,formatted_address,website,photos,rating,address_components,geometry",
+              "name,formatted_address,website,photos,rating,address_components,geometry",
             key: GoogleAPIKey,
           },
         }
@@ -55,9 +58,11 @@ const fetchPlaceDetails = async (placeIds) => {
   }
 };
 
-const getMapUrl = async (latitude, longitude ) =>{
-  console.log(latitude, longitude)
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${GoogleAPIKey}&center=${encodeURIComponent(latitude + ',' + longitude)}&zoom=15`;
+const getMapUrl = async (latitude, longitude) => {
+  console.log(latitude, longitude);
+  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${GoogleAPIKey}&center=${encodeURIComponent(
+    latitude + "," + longitude
+  )}&zoom=15`;
   return mapUrl;
 };
 
@@ -109,12 +114,16 @@ async function getPhotoUrl(photoReference) {
 }
 
 // weatherData = function to call the weather API()
-const fetchWeatherData = async (postalCode, date, unitGroup = "metric") => {
+export const fetchWeatherData = async (
+  postalCode,
+  date,
+  unitGroup = "metric"
+) => {
   const apiKey = WeatherAPIKey;
   const encodedPostalCode = encodeURIComponent(postalCode);
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodedPostalCode}?unitGroup=${unitGroup}&key=${apiKey}`;
-  console.log(url);
   const daysFromNow = getDaysFromToday(date) >= 0 ? getDaysFromToday(date) : 0;
+  console.log(url);
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -123,15 +132,21 @@ const fetchWeatherData = async (postalCode, date, unitGroup = "metric") => {
       },
     });
     const data = await response.json();
-    return data.days[daysFromNow];
-  } catch (error) {
-    console.error("Error fetching weather data: ", error);
+    const dailyWeatherData = data.days[daysFromNow];
     return {
-      "temp": "N/A",
-      "conditions": "N/A",
-      "windspeed": "N/A",
-      "snowdepth": "N/A"
-    }
+      temp: dailyWeatherData.temp,
+      wForecast: dailyWeatherData.conditions,
+      wind: dailyWeatherData.windspeed,
+      sDepth: dailyWeatherData.snowdepth,
+    };
+  } catch (error) {
+    console.error("Error fetching weather data ", error);
+    return {
+      temp: "N/A",
+      wForecast: "N/A",
+      wind: "N/A",
+      sDepth: "N/A",
+    };
   }
 };
 
@@ -144,7 +159,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
       {
         params: {
           location: `${locationLatLng.lat},${locationLatLng.lng}`,
-          radius: distance*10000, // will be replace with distance
+          radius: distance * 10000, // will be replace with distance
           type: "resort", //point_of_interest
           keyword: "ski", //skiing
           key: GoogleAPIKey,
@@ -182,11 +197,11 @@ export const CallGoogleAPI = async (address, date, distance) => {
             ? postalCodeComponent.long_name
             : null;
 
-          const dailyWeatherData = await fetchWeatherData(postalCode, date);
-
           const distance = haversineDistance(
-            locationLatLng.lat, locationLatLng.lng, 
-            placeDetail.geometry?.location.lat, placeDetail.geometry?.location.lng
+            locationLatLng.lat,
+            locationLatLng.lng,
+            placeDetail.geometry?.location.lat,
+            placeDetail.geometry?.location.lng
           );
 
           return {
@@ -195,12 +210,13 @@ export const CallGoogleAPI = async (address, date, distance) => {
             website: placeDetail.website,
             photo: photo,
             rating: placeDetail.rating,
-            mapUrl : await getMapUrl(placeDetail.geometry?.location.lat,placeDetail.geometry?.location.lng),
-            temp: dailyWeatherData.temp,
-            wForecast: dailyWeatherData.conditions,
-            wind: dailyWeatherData.windspeed,
-            sDepth: dailyWeatherData.snowdepth,
-            distance: Math.round(distance * 10) / 10  // Round off to 1 decimal place
+            mapUrl: await getMapUrl(
+              placeDetail.geometry?.location.lat,
+              placeDetail.geometry?.location.lng
+            ),
+            postalCode: postalCode,
+            date: date,
+            distance: Math.round(distance * 10) / 10, // Round off to 1 decimal place
           };
         })
       );
@@ -220,10 +236,10 @@ export const CallGoogleAPI = async (address, date, distance) => {
           "fashion",
           "mode",
           "rent",
-          "rental", 
+          "rental",
           "location",
           "vélo",
-          "bicycle", 
+          "bicycle",
           "cycle",
         ];
 

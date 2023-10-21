@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path'
-import { CallGoogleAPI } from './Controls/APIs_Calls.js';
+import { CallGoogleAPI, fetchWeatherData } from './Controls/APIs_Calls.js';
 
 const app = express();
 const PORT = 5500;
@@ -46,3 +46,13 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+app.get('/weather/:postalCode', async (req, res) => {
+    const { postalCode } = req.params;
+    const { date } = req.query;
+    try {
+        const weatherData= await fetchWeatherData(postalCode, date);
+        res.json(weatherData);
+    } catch(err) {
+        res.status(500).send(err.message);
+    }
+});
