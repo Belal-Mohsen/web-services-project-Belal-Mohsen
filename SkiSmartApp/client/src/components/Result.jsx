@@ -4,8 +4,8 @@ import ResultCard from './ResultCard';
 
   const Results = ({APIData}) => {
   const [results, setResults] = useState([]);
-  const [ratingFilterOptions, setRatingFilterOptions] = useState([false, false, false, false]);
-  const [distanceFilterOptions, setDistanceFilterOptions] = useState([]);
+  const [ratingFilterOptions, setRatingFilterOptions] = useState(null);
+  const [distanceFilterOptions, setDistanceFilterOptions] = useState(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
@@ -40,28 +40,38 @@ import ResultCard from './ResultCard';
 
   const handleFilter = () => {
     const filtered = results.filter((result) => {
+      let ratingMatch = true;
+      let distanceMatch = true;
+  
       const rating = result.rating;
-      
-     
-      if (ratingFilterOptions[0]) {
-        return rating !== null && rating < 3;
-      } else if (ratingFilterOptions[1]) {
-        return rating !== null && rating >= 3 && rating <= 4;
-      } else if (ratingFilterOptions[2]) {
-        return rating !== null && rating > 4;
+  
+      if (ratingFilterOptions !== null) {
+        switch (ratingFilterOptions) {
+          case 0:
+            ratingMatch = rating < 3;
+            break;
+          case 1:
+            ratingMatch = rating >= 3 && rating <= 4;
+            break;
+          case 2:
+            ratingMatch = rating > 4;
+            break;
+          default:
+            ratingMatch = true;
+            break;
+        }
       }
-      // return true; 
-
-      const distanceMatch =
-        distanceFilterOptions.length === 0 ||
-        distanceFilterOptions.some((option) => result.distance <= option);
-
-      return rating && distanceMatch;
+  
+      if (distanceFilterOptions !== null) {
+        distanceMatch = result.distance <= distanceFilterOptions;
+      }
+  
+      return ratingMatch && distanceMatch;
     });
-
+  
     setFilteredResults(filtered);
-
   };
+  
 
 
   // const totalPages = Math.ceil(handleFilter().length / resultsPerPage);
@@ -199,19 +209,17 @@ import ResultCard from './ResultCard';
               {['Less than 3', '3-4', 'More than 4'].map((rating, index) => (
                 <label key={index} className="inline-flex items-center space-x-2">
                   <input
-                    type="checkbox"
-                    className="form-checkbox ml-6"
-                    checked={ratingFilterOptions[index]}
+                    type="radio"
+                    className="form-radio ml-6"
+                    checked={ratingFilterOptions === index}
                     onChange={() => {
-                      const updatedOptions = [...ratingFilterOptions];
-                      updatedOptions[index] = !updatedOptions[index];
-                      setRatingFilterOptions(updatedOptions);
-                     
+                      setRatingFilterOptions(index);
                     }}
                   />
                   <span>{rating}</span>
                 </label>
               ))}
+
             </div>
 
             <div className="mb-4 text-black">
@@ -219,24 +227,18 @@ import ResultCard from './ResultCard';
                   {[25, 50, 75, 100, 150, 200, 250, 300].map((option) => (
                     <label key={option} className="flex items-center">
                       <input
-                        type="checkbox"
-                        value={option.toString()}
-                        checked={distanceFilterOptions.includes(option)}
-                        onChange={(e) => {
-                          const optionValue = option;
-                          setDistanceFilterOptions((prevOptions) => {
-                            if (prevOptions.includes(optionValue)) {
-                              return prevOptions.filter((o) => o !== optionValue);
-                            } else {
-                              return [...prevOptions, optionValue];
-                            }
-                          });
-                         
+                        type="radio"
+                        name="distance"
+                        value={option}
+                        checked={distanceFilterOptions === option}
+                        onChange={() => {
+                          setDistanceFilterOptions(option);
                         }}
                       />
                       <span className="ml-2">{option}</span>
                     </label>
                   ))}
+
             </div>
             <div className="mt-4 flex justify-between">
               <button
