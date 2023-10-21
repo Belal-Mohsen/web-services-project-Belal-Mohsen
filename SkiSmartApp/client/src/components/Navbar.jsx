@@ -14,7 +14,7 @@ const Navbar = () => {
     setName(!name);
   };
   return (
-    <div className="flex w-full items-center h-20 px-4 absolute z-10 text-white shadow-lg">
+    <div className="flex w-full items-center h-20 px-4 absolute z-10 text-sky-100 shadow-lg">
       <div className="flex">
         <div className="my-10">
           <img src={logo} width={100} alt="logo" />

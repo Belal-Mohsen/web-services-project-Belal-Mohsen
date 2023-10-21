@@ -241,6 +241,8 @@ export const CallGoogleAPI = async (address, date, distance) => {
           "vélo",
           "bicycle",
           "cycle",
+          "l'école",
+          
         ];
 
         // Check to see if excluded keywords are in the name

@@ -165,7 +165,7 @@ import ResultCard from './ResultCard';
     <div className="max-h-[80vh] overflow-y-auto sm:overflow-y-visible mt-14 mx-4 sm:mx-20">
       
       <div className="top-rated-section mb-8 mt-24 flex flex-col items-center">
-          <h2 className="text-6xl font-medium mb-4">Top Ski Resorts</h2>
+          <h2 className="text-4xl font-medium mb-16 text-sky-100">Top Ski Resorts</h2>
           <div className="flex flex-wrap gap-10 justify-center">
               {topResorts.map((resort, index) => (
                 <div key={index} className="mb-4">
@@ -189,7 +189,7 @@ import ResultCard from './ResultCard';
       </div>
 
       <div className="mb-8 flex flex-col items-center">
-        <h2 className="text-6xl font-medium mb-4">All Ski Resorts</h2>
+        <h2 className="text-4xl font-medium mb-16 text-sky-100">All Ski Resorts</h2>
         <div className="flex flex-wrap gap-10 justify-center">      
         {filteredResults.map((result, index) => (
           <div key={index} className="mb-4">

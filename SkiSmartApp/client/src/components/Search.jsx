@@ -23,7 +23,7 @@ const Search = ({ formData, onChange, onSubmit }) => {
           <SliderSizes value={formData.distance}
             onChange={handleSliderChange} />
         </div>
-          <button onClick={onSubmit} className='w-full md:w-auto rounded-full text-white bg-blue-500 px-20 mr-2'>Search</button>
+          <button onClick={onSubmit} className='w-full md:w-auto rounded-full text-white bg-custom-blue px-20 mr-2'>Search</button>
       </form>
     </>
   )

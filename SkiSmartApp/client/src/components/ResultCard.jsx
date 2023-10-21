@@ -18,20 +18,20 @@ const ResultCard = ({ APIsData }) => {
   };
 
   return (
-    <div className="result-card w-72 h-92 bg-white text-black mx-auto rounded-3xl shadow-lg border border-gray-600">
+    <div className="result-card w-80 h-104 bg-white text-black mx-auto rounded-3xl shadow-lg border border-gray-600">
       <div className="resort-image rounded-t-3xl">
         <img
           onClick={fetchWeatherAndNavigate}
           src={APIsData?.photo}
           alt={`${APIsData?.name} Resort`}
-          className="w-72 h-56 rounded-t-3xl"
+          className="w-80 h-64 rounded-t-3xl"
         />
       </div>
-      <div className="resort-details p-2 w-72 h-36 rounded-b-3xl text-gray-600">
-        <div className="flex justify-between items-center text-blue-500">
+      <div className="resort-details p-2 w-80 h-40 rounded-b-3xl text-gray-600">
+        <div className="flex justify-between items-center text-custom-blue">
           <h2>{APIsData?.name}</h2>
-          <span className="rating text-lg text-red-500">
-            {APIsData?.rating}
+          <span className="rating text-lg text-custom-green">
+            {APIsData?.rating}/5
           </span>
         </div>
         <p>{APIsData?.address}</p>
