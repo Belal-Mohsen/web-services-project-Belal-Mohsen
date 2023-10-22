@@ -41,7 +41,7 @@ const Navbar = () => {
           <NavLink to="/aboutus">About Us/Contact</NavLink>
         </li>
       </ul>
-      <div className="hidden sm:flex sm:ml-40">
+      <div className="hidden sm:flex ml-auto">
         <NavLink to="/signin">
           <BsPerson size={35} />
         </NavLink>
