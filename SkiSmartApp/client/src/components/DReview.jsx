@@ -18,7 +18,7 @@ const DReview = (detailsData) => {
     message = 'The reviews are average for this ski resort.';
   } else if (numericRating >= 4 && numericRating < 5){
     ratingValue = 4;
-    message = 'The reviews are very good for this ski resort. Enjoy you time there!';
+    message = 'The reviews are very good for this ski resort. Enjoy your time there!';
   } else  if (numericRating === 5){
     ratingValue = 5;
     message = 'The reviews are excellent for this ski resort. Enjoy!';
