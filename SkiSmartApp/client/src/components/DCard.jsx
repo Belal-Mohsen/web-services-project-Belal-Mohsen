@@ -20,7 +20,7 @@ const DCard = (detailsData) => {
             <img className="w-full md:h-[250px]" src={data.photo} alt="img"/>
                 <div className="px-6 py-4">
                     <div className="flex items-center gap-2 font-bold text-xl text-black">{data.name} 
-                    <div onClick={handleBookMark}>
+                    <div onClick={handleBookMark} className='cursor-pointer'>
                     {
                         bookMark ? <HiBookmark /> : <HiOutlineBookmark/>
                     }

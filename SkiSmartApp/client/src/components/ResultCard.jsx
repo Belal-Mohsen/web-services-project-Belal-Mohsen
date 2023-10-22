@@ -24,7 +24,7 @@ const ResultCard = ({ APIsData }) => {
           onClick={fetchWeatherAndNavigate}
           src={APIsData?.photo}
           alt={`${APIsData?.name} Resort`}
-          className="w-80 h-64 rounded-t-3xl"
+          className="w-80 h-64 rounded-t-3xl cursor-pointer"
         />
       </div>
       <div className="resort-details p-2 w-80 h-40 rounded-b-3xl text-gray-600">
