@@ -27,8 +27,8 @@ const Home = () => {
     
       <div className='absolute top-0 w-full h-full flex flex-col 
     justify-start'>
-        <div className='mx-24 mb-10 mt-56'>
-          <h1 className="text-4xl text-sky-800"> Ski the mountain, own the day </h1>
+        <div className='mx-24  mb-44 mt-36'>
+          <h1 className="text-5xl text-sky-100"> Ski the mountain, own the day. </h1>
         </div>
       <div className="mx-16">
       <Search formData={formData} onChange={handleChange} onSubmit={handleSubmit} 
