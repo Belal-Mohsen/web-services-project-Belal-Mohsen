@@ -4,7 +4,7 @@ import path from 'path'
 import { CallGoogleAPI, fetchWeatherData } from './Controls/APIs_Calls.js';
 
 const app = express();
-const PORT = 5500;
+const PORT = 5000;
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../client/build");
 app.use(express.static(buildPath));
