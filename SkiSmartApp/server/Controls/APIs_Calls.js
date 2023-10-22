@@ -188,7 +188,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
           const photo =
             placeDetail.photos && placeDetail.photos[0]
               ? await getPhotoUrl(placeDetail.photos[0].photo_reference)
-              : null;
+              : './placeholder.jpg';
 
           const postalCodeComponent = placeDetail.address_components.find(
             (component) => component.types.includes("postal_code")
