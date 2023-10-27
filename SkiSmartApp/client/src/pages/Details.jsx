@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import DCard from '../components/DCard';
-import DReview from '../components/DReview';
 import DGoogleMap from '../components/DGoogleMap';
 
 const Details = () => {
@@ -26,13 +25,8 @@ const Details = () => {
 
         <div className="hidden md:flex flex-col justify-start self-center w-full p-4">
           <div>
-          <DGoogleMap detailsData ={dataReceived}/>
-
+            <DGoogleMap detailsData ={dataReceived}/>
           </div>
-          <div className='w-full'>
-            <DReview detailsData ={dataReceived}/>
-          </div>
-
         </div>
 
       </div>
