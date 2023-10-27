@@ -2,9 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path'
 import { CallGoogleAPI, fetchWeatherData } from './Controls/APIs_Calls.js';
+import cities_data from './Controls/Data_Calls.js';
 
 const app = express();
-const PORT = 5500;
+const PORT = 5000;
+const DISTANCE_API = 150;
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../client/build");
 app.use(express.static(buildPath));
@@ -35,12 +37,42 @@ app.get("/", (req, res) => {
       }
     });
   });
-app.get('/skiAPI', (req, res) => {
-    res.send({
-        "name": "Ski",
-        "address": "Address"
-    })
+
+  app.get('/skicities', async (req, res) => {
+    // skicities?city=CityName&date=15-10-2023
+    try {
+        const cityName = req.query.city;
+        const date = req.query.date; 
+        
+
+        if (!cityName || !date) {
+            return res.status(400).json({ error: 'City name and date are required' });
+        }
+
+        let cityPostal = cities_data.cities[cityName] || 'City not found';
+        if(cityPostal == 'City not found'){
+            return res.status(400).json({ error: 'City not found' });
+        }
+
+        const skiCitiesData = await CallGoogleAPI(cityPostal, date, DISTANCE_API);
+
+        const weatherPromises = skiCitiesData.map(async (cityData) => {
+            const postalCode = cityData.postalCode; 
+            const weatherResponse = await fetchWeatherData(postalCode, date); 
+            return {
+                cityData: cityData,
+                weatherData: weatherResponse
+            };
+        });
+
+        const combinedData = await Promise.all(weatherPromises);
+
+        res.json(combinedData);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
