@@ -7,7 +7,7 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
 const DCard = ({ detailsData }) => {
-    const [activeTab, setActiveTab] = useState('Overview');
+    const [activeTab, setActiveTab] = useState('Weather');
     const [bookMark, setBookMark] = useState(false);
 
     const handleBookMark = () => {
@@ -38,22 +38,7 @@ const DCard = ({ detailsData }) => {
 
     const renderContent = () => {
         switch (activeTab) {
-            case 'Overview':
-                return (
-                    <>
-                        <li className='m-0 p-1 flex gap-1 items-center'>
-                            <GiEarthAmerica className='text-black' />
-                            <a href={detailsData?.website} target="_blank" rel="noopener noreferrer">
-                                {detailsData?.website}
-                            </a>
-                        </li>
-                        <li className='m-0 p-1 flex gap-2 items-center'>
-                            <FaMapMarkerAlt className='text-black' /> 
-                            {detailsData.address}
-                            <MapUsingAddress address={detailsData.address} />
-                        </li>
-                    </>
-                );
+            
             case 'Weather':
                 return (
                     <>
@@ -100,9 +85,23 @@ const DCard = ({ detailsData }) => {
                         {bookMark ? <HiBookmark /> : <HiOutlineBookmark />}
                     </div>
                 </div>
+
+                <div>
+                    <li className='m-0 p-1 flex gap-1 items-center'>
+                        <GiEarthAmerica className='text-black' />
+                        <a href={detailsData?.website} target="_blank" rel="noopener noreferrer">
+                            {detailsData?.website}
+                        </a>
+                    </li>
+                    <li className='m-0 p-1 flex gap-2 items-center'>
+                        <FaMapMarkerAlt className='text-black' /> 
+                        {detailsData.address}
+                        <MapUsingAddress address={detailsData.address} />
+                    </li>
+                </div>  
                 
                 <div className="flex mt-4 gap-4">
-                    {['Overview', 'Weather', 'Reviews'].map(tab => (
+                    {['Weather', 'Reviews'].map(tab => (
                         <span
                             key={tab}
                             className={`cursor-pointer ${activeTab === tab ? 'text-blue-500' : 'text-black'}`}
