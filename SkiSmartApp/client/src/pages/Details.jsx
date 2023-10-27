@@ -23,11 +23,9 @@ const Details = () => {
           <DCard detailsData ={dataReceived}/>
         </div>
 
-        <div className="hidden md:flex flex-col justify-start self-center w-full p-4">
           <div>
             <DGoogleMap detailsData ={dataReceived}/>
           </div>
-        </div>
 
       </div>
          ):(
