@@ -4,10 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-blue': '#4774E5', // Change to your desired color
+        'custom-blue': '#016F9F', // Change to your desired color
         'custom-green': '#85B327',
       },
+      borderRadius:{
+        'custom': '2rem',
+      },
+      
     },
   },
   plugins: [],
 }
+
+
