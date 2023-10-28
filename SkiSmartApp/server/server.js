@@ -3,9 +3,11 @@ import bodyParser from 'body-parser';
 import path from 'path'
 import { CallGoogleAPI, fetchWeatherData } from './Controls/APIs_Calls.js';
 import cities_data from './Controls/Data_Calls.js';
+import {haversineDistance, locationLatLng} from './Controls/APIs_Calls.js';
+// import locationLatLng from './Controls/APIs_Calls.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = 5500;
 const DISTANCE_API = 150;
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../client/build");
@@ -88,3 +90,28 @@ app.get('/weather/:postalCode', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+
+app.get('/sortedskiresorts', async (req, res) => {
+    //sortedskiresort?postCode=H3S2L4&date=15-10-2023&limit=3
+    
+    const { postalCode, date, limit } = req.query;
+  
+    if (!postalCode || !date || isNaN(limit)) {
+      return res.status(400).json({ error: 'Postal code, date, and valid limit are required' });
+    }
+  
+    try {
+      const skiResorts = await CallGoogleAPI(postalCode, date, DISTANCE_API);
+      
+      //sort resorts by distance in ascending order from user's postalCode
+      skiResorts.sort((a, b) => a.distance - b.distance);
+      
+      //let user choose amount of resorts to show, for example 3 closest
+      const limitedSkiResorts = skiResorts.slice(0, Number(limit));
+
+      res.json(limitedSkiResorts);
+
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });

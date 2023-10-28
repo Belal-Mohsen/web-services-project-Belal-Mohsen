@@ -151,8 +151,8 @@ export const fetchWeatherData = async (
 };
 
 export const CallGoogleAPI = async (address, date, distance) => {
-  const locationLatLng = await getLatLongFromPostalCode(address);
-
+ const locationLatLng = await getLatLongFromPostalCode(address);
+ 
   if (locationLatLng) {
     const googlePlacesResponse = await axios.get(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json`,
@@ -165,7 +165,7 @@ export const CallGoogleAPI = async (address, date, distance) => {
           key: GoogleAPIKey,
         },
       }
-    );
+    ); 
     if (googlePlacesResponse.data.status === "OK") {
       const places = googlePlacesResponse.data.results;
       const placeIds = places.map((place) => place.place_id);
@@ -220,6 +220,8 @@ export const CallGoogleAPI = async (address, date, distance) => {
           };
         })
       );
+
+     
 
       // Filter out places based on keywords
       const filteredResponse = simplifiedResponse.filter((place) => {
