@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path'
 import { CallGoogleAPI, fetchWeatherData } from './Controls/APIs_Calls.js';
 import cities_data from './Controls/Data_Calls.js';
-import {haversineDistance, locationLatLng} from './Controls/APIs_Calls.js';
-// import locationLatLng from './Controls/APIs_Calls.js';
+
 
 const app = express();
 const PORT = 5500;

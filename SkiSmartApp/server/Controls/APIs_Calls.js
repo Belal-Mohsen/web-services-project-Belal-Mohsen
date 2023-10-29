@@ -150,8 +150,9 @@ export const fetchWeatherData = async (
   }
 };
 
+
 export const CallGoogleAPI = async (address, date, distance) => {
- const locationLatLng = await getLatLongFromPostalCode(address);
+const locationLatLng = await getLatLongFromPostalCode(address);
  
   if (locationLatLng) {
     const googlePlacesResponse = await axios.get(
@@ -277,3 +278,4 @@ function getDaysFromToday(targetDate) {
   const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
   return diffInDays;
 }
+
