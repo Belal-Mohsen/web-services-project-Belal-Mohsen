@@ -90,8 +90,8 @@ app.get('/weather/:postalCode', async (req, res) => {
     }
 });
 
-app.get('/sortedskiresorts', async (req, res) => {
-    //sortedskiresort?postCode=H3S2L4&date=15-10-2023&limit=3
+app.get('/skiresortsbydistance', async (req, res) => {
+    //skiresortsbydistance?postCode=H3S2L4&date=15-10-2023&limit=3
     
     const { postalCode, date, limit } = req.query;
   
