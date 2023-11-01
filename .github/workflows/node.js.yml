@@ -24,6 +24,7 @@ jobs:
         cache-dependency-path: SkiSmartApp/client/package-lock.json
     - run: |
         cd SkiSmartApp/client
+        npm install
         npm run build
     - run: |
          cd SkiSmartApp/server
