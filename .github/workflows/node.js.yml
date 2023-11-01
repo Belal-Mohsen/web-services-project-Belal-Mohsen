@@ -23,12 +23,12 @@ jobs:
         cache: 'npm'
         cache-dependency-path: SkiSmartApp/client/package-lock.json
     - run: |
-        cd client
+        cd SkiSmartApp/client
         npm run build
     - run: |
-         cd server
+         cd SkiSmartApp/server
          npm install
     - run: |
-        cd server
+        cd SkiSmartApp/server
         pm2 start server.js --name=ServerAPI
     # - run: pm2 restart ServerAPI
