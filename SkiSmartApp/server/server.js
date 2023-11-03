@@ -6,7 +6,7 @@ import cities_data from './Controls/Data_Calls.js';
 
 
 const app = express();
-const PORT = 5500;
+const PORT = 5000;
 const DISTANCE_API = 150;
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../client/build");
