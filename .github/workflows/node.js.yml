@@ -22,7 +22,6 @@ jobs:
       - run: |
           cd SkiSmartApp/client
           npm install
-          npm run build
       - run: |
           cd SkiSmartApp/server
           npm install
