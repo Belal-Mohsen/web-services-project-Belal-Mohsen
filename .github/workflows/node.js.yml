@@ -25,7 +25,7 @@ jobs:
       - run: |
           cd SkiSmartApp/server
           npm install
-      - run: |
-          cd SkiSmartApp/server
-          pm2 start server.js --name=ServerAPI
-      #- run: pm2 restart ServerAPI
+     # - run: |
+     #     cd SkiSmartApp/server
+     #     pm2 start server.js --name=ServerAPI
+      - run: pm2 restart ServerAPI
