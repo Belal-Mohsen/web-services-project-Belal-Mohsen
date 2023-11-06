@@ -80,8 +80,9 @@ app.listen(PORT, () => {
 });
 
 app.get('/weather/:postalCode', async (req, res) => {
-    const { postalCode } = req.params;
-    const { date } = req.query;
+    //weather/:postalCode=H3S2L4&date=15-11-2023
+    const { postalCode, date } = req.query;
+
     try {
         const weatherData= await fetchWeatherData(postalCode, date);
         res.json(weatherData);
@@ -91,7 +92,7 @@ app.get('/weather/:postalCode', async (req, res) => {
 });
 
 app.get('/skiresortsbydistance', async (req, res) => {
-    //skiresortsbydistance?postCode=H3S2L4&date=15-10-2023&limit=3
+    //skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3
     
     const { postalCode, date, limit } = req.query;
   
