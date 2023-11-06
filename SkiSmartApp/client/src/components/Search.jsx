@@ -1,5 +1,5 @@
 import React from 'react'
-import SliderSizes from '../components/Slider';
+import SliderSizes from './Slider';
 
 
 const Search = ({ formData, onChange, onSubmit }) => {
@@ -34,6 +34,7 @@ const Search = ({ formData, onChange, onSubmit }) => {
           className='search-element' 
           type='text' 
           placeholder='Insert your postal code'
+          data-testid='address-input'
           />
 
         <input value={formData.date || minDate}
@@ -42,6 +43,7 @@ const Search = ({ formData, onChange, onSubmit }) => {
           type='date' 
           min={minDate}
           max={maxDate}
+          data-testid='date-input'
           />
 
         <div className= 'search-element flex flex-row gap-3 mx-3 w-full md:w-auto justify-center'>
