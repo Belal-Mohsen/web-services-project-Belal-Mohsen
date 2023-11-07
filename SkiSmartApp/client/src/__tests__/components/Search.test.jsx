@@ -29,12 +29,15 @@ describe("Search Component", () => {
   it("restricts minimum date to be current date", () => {
     const dateInput = screen.getByTestId("date-input");
     const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0];
-    fireEvent.change(dateInput, { target: { value: formattedToday } } )
+    const formattedToday = today.toISOString().split('T')[0]; // get YYYY-MM-DD part
+    const tenDaysPast = new Date(today)
+    tenDaysPast.setDate(tenDaysPast.getDate() - 10);
+    const formattedTenDaysPast = tenDaysPast.toISOString().split('T')[0]; // get YYYY-MM-DD part
+    fireEvent.change(dateInput, { target: { value: formattedTenDaysPast } } )
     expect(mockOnChange).toHaveBeenCalledWith(
-      expect.objectContaining({ date: formattedToday })
+      expect.objectContaining({ date: formattedTenDaysPast })
     );
-
+    expect(dateInput).toHaveValue(formattedToday); // because we don't have handle change, expect to have minDate as default
   });
 
   it("has a distance slider that calls onChange when adjusted", () => {
