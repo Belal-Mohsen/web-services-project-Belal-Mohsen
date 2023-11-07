@@ -97,38 +97,43 @@ Supported Cities:
 
 Endpoint: /skiresortsbydistance
 
-Description:
-Provides a list of ski resorts sorted by distance, from the closest to the furthest from the user's postal code. Users need to specify the limit to the number of resorts returned. For example, limit=3, will return the 3 closest ski resorts to the user’s postal code.
+**Description:**
 
-Query Parameters:
-postalCode: Postal code of the user's location.
-date: Desired date for the ski trip (format: DD-MM-YYYY).
-limit: Number of resorts to return.
+- Provides a list of ski resorts sorted by distance, from the closest to the furthest from the user's postal code. Users need to specify the limit to the number of resorts returned. For example, limit=3, will return the 3 closest ski resorts to the user’s postal code.
 
-Attributes Returned:
-name: Name of the ski resort.
-address: Physical address of the resort.
-website: Website URL of the resort.
-photo: Photo URL of the resort.
-mapUrl: Google Maps URL of the resort.
-postalCode: Postal code of the resort.
-date: Date for which the information is provided.
-distance: Distance from the postal code to the resort.
+**Query Parameters:**
 
-Sample Calls:
-JavaScript
-fetch('http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3')
-.then(response => response.json())
-.then(data => console.log(data));
+- postalCode: Postal code of the user's location.
+- date: Desired date for the ski trip (format: DD-MM-YYYY).
+- limit: Number of resorts to return.
 
-Browser
-http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3
+**Attributes Returned:**
 
-Terminal
-curl http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3
+- name: Name of the ski resort.
+- address: Physical address of the resort.
+- website: Website URL of the resort.
+- photo: Photo URL of the resort.
+- mapUrl: Google Maps URL of the resort.
+- postalCode: Postal code of the resort.
+- date: Date for which the information is provided.
+- distance: Distance from the postal code to the resort.
 
-Sample JSON Response:
-[
+**Sample Calls:**
+
+- JavaScript
+  fetch('http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+- Browser
+  http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3
+
+- Terminal
+  curl http://3.145.39.202/skiresortsbydistance?postalCode=H3S2L4&date=15-10-2023&limit=3
+
+**Sample JSON Response:**
+
+```[
 {
 "name": "Poubelle du Ski",
 "address": "8278 Boul. Saint-Laurent, Montréal, QC H2P 2L8, Canada",
@@ -162,51 +167,63 @@ Sample JSON Response:
 "distance": 14.1
 }
 ]
+```
 
-Error Codes:
-400 Bad Request: Postal code and date are required.
-400 Bad Request: No resorts found near the postal code.
-500 Internal Server Error: Any server-side error.
+**Error Codes:**
 
-3. Weather Information
-   Endpoint: /weather/:postalCode
+- 400 Bad Request: Postal code and date are required.
+- 400 Bad Request: No resorts found near the postal code.
+- 500 Internal Server Error: Any server-side error.
 
-Description:
+## Weather Information
+
+Endpoint: /weather/:postalCode
+
+### Description:
+
 Provides the current weather information based on the postal code and date provided. The data includes temperature, weather forecast, wind speed, and snow depth.
 
-Path Parameter:
-postalCode: Postal code for which the weather information is required.
+**Path Parameter:**
 
-Query Parameter:
-date: Desired date for the weather information (format: DD-MM-YYYY).
+- postalCode: Postal code for which the weather information is required.
 
-Attributes Returned:
-temp: Current temperature.
-wForecast: Weather forecast description.
-wind: Wind speed.
-sDepth: Snow depth.
+**Query Parameter:**
 
-Sample Calls:
-JavaScript
-fetch('http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023')
-.then(response => response.json())
-.then(data => console.log(data));
+- date: Desired date for the weather information (format: DD-MM-YYYY).
 
-Browser
-http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023
+**Attributes Returned:**
 
-Terminal
-curl http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023
-Sample JSON Response:
+- temp: Current temperature.
+- wForecast: Weather forecast description.
+- wind: Wind speed.
+- sDepth: Snow depth.
 
+**Sample Calls:**
+
+- JavaScript
+  fetch('http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+- Browser
+  http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023
+
+- Terminal
+  curl http://3.145.39.202/weather/:postalCode=H3S2L4&date=15-11-2023
+
+**Sample JSON Response:**
+
+```
 {
 "temp": 5,
 "wForecast": "Partially cloudy",
 "wind": 11.5,
 "sDepth": 0
 }
+```
 
-Error Codes:
-400 Bad Request: Postal code is required.
-404 Not Found: No weather data found for the postal code.
-500 Internal Server Error: Any server-side error.
+**Error Codes:**
+
+- 400 Bad Request: Postal code is required.
+- 404 Not Found: No weather data found for the postal code.
+- 500 Internal Server Error: Any server-side error.
