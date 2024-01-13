@@ -2,8 +2,8 @@ import axios from "axios";
 import dotenv from "dotenv";
 
 dotenv.config();
-const GoogleAPIKey = "AIzaSyBq_hYo4JWsz1s6HglTs1doKeGdAhHlt3U";
-const WeatherAPIKey = "M9HRY7XX7GCUTVZMP9YQLUAA5";
+const GoogleAPIKey = process.env.GOOGLE_API;
+const WeatherAPIKey = process.env.WEATHER_API;
 
 // Haversine formula function to calculate distance between two lat-lng points
 function haversineDistance(lat1, lon1, lat2, lon2) {
